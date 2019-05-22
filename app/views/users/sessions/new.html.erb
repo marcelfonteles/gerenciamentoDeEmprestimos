@@ -1,27 +1,37 @@
-<div class="jumbotron">
-<h2>Log in</h2>
-</div>
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+
+<div class="login-box">
+  <div class="login-logo">
+    <b>Gerenciamento</b>
+  </div>
+  <!-- /.login-logo -->
+  <div class="login-box-body">
+    <p class="login-box-msg">Entre para iniciar a sessão</p>
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
   <div class="field">
     <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", class:'form-control'  %>
   </div>
 
   <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
+    <%= f.label :password, "Senha" %><br />
+    <%= f.password_field :password, autocomplete: "current-password", class:'form-control' %>
   </div>
 
   <% if devise_mapping.rememberable? %>
     <div class="field">
       <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+      <%= f.label :remember_me, "Lembre-me" %>
     </div>
   <% end %>
 
   <div class="actions">
-    <%= f.submit "Log in" %>
+    <%= f.submit "Entrar", class:'btn btn-primary btn-block btn-rounded' %>
   </div>
 <% end %>
 
-<%= render "users/shared/links" %>
+
+  </div>
+  <!-- /.login-box-body -->
+</div>
+<!-- /.login-box -->
+
