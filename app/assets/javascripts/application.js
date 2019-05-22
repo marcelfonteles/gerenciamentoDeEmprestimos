@@ -24,6 +24,7 @@ document.addEventListener("turbolinks:load", function() {
   $("#new-loan").click(function(){
     $("#new-loan").addClass("d-none");
     $("#new-loan-form").removeClass("d-none");
+    $("#cancel-loan").removeClass("d-none");
   });
    $("#new-loan-submit").click(function(){
     var date = $("#firstPayment").val().substr(6,4) + '-' + $("#firstPayment").val().substr(3,2) + '-' + $("#firstPayment").val().substr(0,2);
@@ -38,6 +39,7 @@ document.addEventListener("turbolinks:load", function() {
     $(".form-control").val("");
     $("#new-loan").removeClass("d-none");
     $("#new-loan-form").addClass("d-none");
+    $("#cancel-loan").addClass("d-none");
   });
 
   $('input[name="loan[firstPayment]"]').daterangepicker({

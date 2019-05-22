@@ -10,6 +10,7 @@
     <!-- Main content -->
     <section class="content">
       <button class='btn btn-primary' id='new-loan' style="margin-bottom: 5px">Novo Emprestimo</button>
+      <button class='btn btn-danger d-none' id='cancel-loan' style="margin-bottom: 5px">Cancelar</button>
       <div class="box box-primary d-none" id="new-loan-form">
         <div class="box-header with-border">
           <h3 class="box-title">Novo Emprestimo</h3>
@@ -39,8 +40,9 @@
               <%= f.text_field :firstPayment, class:'form-control', id: "firstPayment"%>
             </div>
             <div class="box-footer">
-              <%= f.submit "Cadastrar", class:'btn btn-primary', id:'new-loan-submit'%> <button class='btn btn-danger' id='cancel-loan'>Cancelar</button>
+              <%= f.submit "Cadastrar", class:'btn btn-primary', id:'new-loan-submit'%>
             </div>
+            
           <% end %>
         </div>
       </div>
