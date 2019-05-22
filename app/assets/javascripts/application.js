@@ -27,13 +27,28 @@ document.addEventListener("turbolinks:load", function() {
     $("#cancel-loan").removeClass("d-none");
   });
    $("#new-loan-submit").click(function(){
-    var date = $("#firstPayment").val().substr(6,4) + '-' + $("#firstPayment").val().substr(3,2) + '-' + $("#firstPayment").val().substr(0,2);
-    $("#firstPayment").val(date);
-    $("#new-loan").removeClass("d-none");
-    $("#new-loan-form").addClass("d-none");
-    setTimeout(function() {
-            $(".form-control").val("");
-    }, 10);
+    if ($("#loan_name").val() === '' || $("#loan_amount").val() === '' || $("#loan_store").val() === '' || $("#loan_portion1").val() === '' || $("#loan_portion2").val() === '' || $("#loan_portion3").val() === '' || $("#date_p1").val() === '' || $("#date_p2").val() === '' || $("#date_p3").val() === '') {
+      alert("Todos os campos devem ser preenchidos corretamente.");
+    } else {
+      var date1 = $("#date_p1").val().substr(6,4) + '-' + $("#date_p1").val().substr(3,2) + '-' + $("#date_p1").val().substr(0,2);
+      var date2 = $("#date_p2").val().substr(6,4) + '-' + $("#date_p2").val().substr(3,2) + '-' + $("#date_p2").val().substr(0,2);
+      var date3 = $("#date_p3").val().substr(6,4) + '-' + $("#date_p3").val().substr(3,2) + '-' + $("#date_p3").val().substr(0,2);
+      $("#date_p1").val(date1);
+      $("#date_p2").val(date2);
+      $("#date_p3").val(date3);  
+      $("#new-loan").removeClass("d-none");
+      $("#new-loan-form").addClass("d-none");
+      $("#cancel-loan").addClass("d-none");
+        setTimeout(function() {
+            $(".clear-field").val("");
+            date1 = $("#date_p1").val().substr(8,2) + '/' + $("#date_p1").val().substr(5,2) + '/' + $("#date_p1").val().substr(0,4);
+            date2 = $("#date_p2").val().substr(8,2) + '/' + $("#date_p2").val().substr(5,2) + '/' + $("#date_p2").val().substr(0,4);
+            date3 = $("#date_p3").val().substr(8,2) + '/' + $("#date_p3").val().substr(5,2) + '/' + $("#date_p3").val().substr(0,4);
+            $("#date_p1").val(date1);
+            $("#date_p2").val(date2);
+            $("#date_p3").val(date3);  
+      }, 10);
+    };
   });
   $("#cancel-loan").click(function() {
     $(".form-control").val("");
@@ -41,42 +56,4 @@ document.addEventListener("turbolinks:load", function() {
     $("#new-loan-form").addClass("d-none");
     $("#cancel-loan").addClass("d-none");
   });
-
-  $('input[name="loan[firstPayment]"]').daterangepicker({
-     singleDatePicker: true,
-    "locale": {
-        "format": "DD/MM/YYYY",
-        "separator": "/",
-        "applyLabel": "Apply",
-        "cancelLabel": "Cancel",
-        "fromLabel": "From",
-        "toLabel": "To",
-        "customRangeLabel": "Custom",
-        "weekLabel": "W",
-        "daysOfWeek": [
-            "Dom",
-            "Seg",
-            "Ter",
-            "Quar",
-            "Qui",
-            "Sex",
-            "Sab"
-        ],
-        "monthNames": [
-            "Janeiro",
-            "Fevereiro",
-            "Março",
-            "Abril",
-            "Maio",
-            "Junho",
-            "Julho",
-            "Agosto",
-            "Setembro",
-            "Outubro",
-            "Novembro",
-            "Dezembro"
-        ],
-        "firstDay": 1
-    }
-});
 })

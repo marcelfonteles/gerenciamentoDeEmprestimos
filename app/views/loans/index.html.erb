@@ -21,23 +21,51 @@
             <!-- text input -->
             <div class="form-group">
               <label>Nome</label>
-              <%= f.text_field :name, class:'form-control'%>
+              <%= f.text_field :name, class:'form-control clear-field'%>
             </div>
             <div class="form-group">
               <label>Loja</label>
-              <%= f.text_field :store, class:'form-control'%>
+              <%= f.text_field :store, class:'form-control clear-field'%>
             </div>
             <div class="form-group">
               <label>Valor</label>
-              <%= f.text_field :amount, class:'form-control'%>
+              <%= f.text_field :amount, class:'form-control clear-field'%>
             </div>
             <div class="form-group">
-              <label>Parcelas &nbsp</label>
-              <%= f.select :qtyPortion, [1,2,3,4,5], class:'form-control'%>
+              <div class='row'>
+                <div class='col-md-3'>
+                  <label>Parcela 1</label>
+                  <%= f.text_field :portion1, class:'form-control clear-field'%>
+                </div>
+                <div class='col-md-3'>
+                  <label>Pagamento da 1ª parcela</label>
+                  <%= f.text_field :date_p1, class:'form-control', value: @p1.strftime('%d/%m/%Y'), id:'date_p1'%>
+                </div>
+              </div>
             </div>
             <div class="form-group">
-              <label>Primeiro Pagamento</label>
-              <%= f.text_field :firstPayment, class:'form-control', id: "firstPayment"%>
+              <div class='row'>
+                <div class='col-md-3'>
+                  <label>Parcela 2</label>
+                  <%= f.text_field :portion2, class:'form-control clear-field'%>
+                </div>
+                <div class='col-md-3'>
+                  <label>Pagamento da 2ª parcela</label>
+                  <%= f.text_field :date_p2, class:'form-control', value: @p2.strftime('%d/%m/%Y'), id:'date_p2'%>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class='row'>
+                <div class='col-md-3'>
+                  <label>Parcela 3</label>
+                  <%= f.text_field :portion3, class:'form-control clear-field'%>
+                </div>
+                <div class='col-md-3'>
+                  <label>Pagamento da 3ª parcela</label>
+                  <%= f.text_field :date_p3, class:'form-control', value: @p3.strftime('%d/%m/%Y'), id:'date_p3'%>
+                </div>
+              </div>
             </div>
             <div class="box-footer">
               <%= f.submit "Cadastrar", class:'btn btn-primary', id:'new-loan-submit'%>
@@ -72,7 +100,7 @@
                   <td><%= loan.name%></td>
                   <td><%= loan.store%></td>
                   <td><%= loan.amount%></td>
-                  <td><%= loan.qtyPortion%></td>
+                  <td>3</td>
                   <td><%= loan.created_at.strftime('%d/%m/%Y')%></td>
                 </tr>
                 <% end %>
