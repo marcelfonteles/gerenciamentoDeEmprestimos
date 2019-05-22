@@ -14,6 +14,7 @@
  
  *= require adminlte.min
  *= require allskins.min
+ *= require dateRangePicker/dateRangePicker
  *= require_tree .
  *= require_self
  */
