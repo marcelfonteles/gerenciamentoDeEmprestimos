@@ -34,6 +34,11 @@ document.addEventListener("turbolinks:load", function() {
             $(".form-control").val("");
     }, 10);
   });
+  $("#cancel-loan").click(function() {
+    $(".form-control").val("");
+    $("#new-loan").removeClass("d-none");
+    $("#new-loan-form").addClass("d-none");
+  });
 
   $('input[name="loan[firstPayment]"]').daterangepicker({
      singleDatePicker: true,

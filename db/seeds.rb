@@ -5,6 +5,8 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-10.times do 
-  Loan.create(amount: 1000.00, firstPayment: '1994-12-05', name: "Marcel", store:"Loja", qtyPortion: 3)
+User.create(email:'email@email.com', password:'password')
+3.times do 
+  Loan.create(amount: 1000.00, firstPayment: '1994-12-05', name: "Marcel", store:"Loja 1", qtyPortion: 3)
+  Loan.create(amount: 1250.00, firstPayment: '1994-12-05', name: "José", store:"Loja 2", qtyPortion: 2)
 end
