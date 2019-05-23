@@ -101,6 +101,7 @@
                   <th>1ª Parcela</th>
                   <th>2ª Parcela</th>
                   <th>3ª Parcela</th>
+                  <th>Opções</th>
                 </tr>
                 <% @count = 1%>
                 <% @loans.each do |loan| %>
@@ -125,6 +126,7 @@
                   <% else %>
                   <td><span class='text-danger'>R$ <%= loan.portion3%> (<%= loan.date_p3.strftime('%d/%m/%Y')%>)</span></td>
                   <% end %>
+                  <td><%= link_to "Apagar", destroy_loan_path(loan.id), class:'btn btn-danger btn-sm btn-rounded', method: :delete, data: {confirm: 'Tem certeza que deseja apagar o emprestimo?'}%></td>
                 </tr>
                 <% end %>
                 <tr>
@@ -135,6 +137,7 @@
                   <td>R$ <%= @loans.select{ |loan| !loan.paid_p1 }.sum{ |loan| loan.portion1 }%></td>
                   <td>R$ <%= @loans.select{ |loan| !loan.paid_p2 }.sum{ |loan| loan.portion2 }%></td>
                   <td>R$ <%= @loans.select{ |loan| !loan.paid_p3 }.sum{ |loan| loan.portion3 }%></td>
+                  <td></td>
                 </tr>
               </table>
             </div>

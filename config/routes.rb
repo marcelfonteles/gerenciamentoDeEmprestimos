@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     get ':id', to: 'loans#loan', as: 'loan'
     post ':id/:portion/confirm', to: 'loans#confirm_payment', as: 'confirm_payment'
     post ':id/:portion/cancel', to: 'loans#cancel_payment', as: 'cancel_payment'
+    delete ':id/delete', to: 'loans#destroy_loan', as: 'destroy_loan'
   end
   
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

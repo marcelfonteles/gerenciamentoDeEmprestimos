@@ -70,6 +70,13 @@ class LoansController < ApplicationController
     @p3 = Date.today + 90
   end
   
+  def destroy_loan
+    @loan = Loan.find(params[:id])
+    if @loan.destroy
+      redirect_to root_path
+    end
+  end
+  
   private
   
   def loans_params
