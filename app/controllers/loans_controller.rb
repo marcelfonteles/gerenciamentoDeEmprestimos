@@ -64,7 +64,6 @@ class LoansController < ApplicationController
                                     (loan.date_p2.month == params[:date][0..1].to_i and loan.date_p2.year == params[:date][3..7].to_i) or 
                                     (loan.date_p3.month == params[:date][0..1].to_i and loan.date_p2.year == params[:date][3..7].to_i)
                               }
-    puts @loans
     @newLoan = Loan.new
     @p1 = Date.today + 30
     @p2 = Date.today + 60
