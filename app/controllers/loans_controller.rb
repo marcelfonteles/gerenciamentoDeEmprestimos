@@ -4,9 +4,9 @@ class LoansController < ApplicationController
   def index
     @loans = Loan.all.order(:date_p1, :date_p2, :date_p3)
     @newLoan = Loan.new
-    @p1 = Date.today + 60
-    @p2 = Date.today + 90
-    @p3 = Date.today + 120
+    @p1 = Date.today + 70
+    @p2 = Date.today + 100
+    @p3 = Date.today + 130
     @loansFilter = loans_filter
   end
   
