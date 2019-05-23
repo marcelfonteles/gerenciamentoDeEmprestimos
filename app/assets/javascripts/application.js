@@ -64,5 +64,12 @@ document.addEventListener("turbolinks:load", function() {
         url: '/loan/filtro/' + $("#filter-input").val()
       });
     } 
+  });
+  $("#loan_amount").focusout(function() {
+    var amount = $("#loan_amount").val();
+    amount = (amount / 3).toFixed(2);
+    $("#loan_portion1").val(amount);
+    $("#loan_portion2").val(amount);
+    $("#loan_portion3").val(amount);
   })
 })
