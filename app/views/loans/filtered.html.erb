@@ -109,27 +109,39 @@
                 <% @count = 1%>
                 <% if !@loans.nil?%>
                   <% @loans.each do |loan| %>
-                  <tr style="font-weight: normal">
-                    <td><%= @count %>.</td>
-                    <% @count += 1 %>
-                    <td><%= loan.name%></td>
-                    <td><%= loan.store%></td>
-                    <td>R$ <%= loan.amount%></td>
-                    <td>R$ <%= loan.portion1%> (<%= loan.date_p1.strftime('%d/%m/%Y')%>)</td>
-                    <td>R$ <%= loan.portion2%> (<%= loan.date_p2.strftime('%d/%m/%Y')%>)</td>
-                    <td>R$ <%= loan.portion3%> (<%= loan.date_p3.strftime('%d/%m/%Y')%>)</td>
-                  </tr>
+                    <tr style="font-weight: normal">
+                      <td><%= @count %>.</td>
+                      <% @count += 1 %>
+                      <td><%= loan.name%></td>
+                      <td><%= loan.store%></td>
+                      <td>R$ <%= loan.amount%></td>
+                      <% if loan.paid_p1 %>
+                        <td><span class='text-success'>R$ <%= loan.portion1%> (<%= loan.date_p1.strftime('%d/%m/%Y')%>)</span></td>
+                      <% else %>
+                        <td><span class='text-danger'>R$ <%= loan.portion1%> (<%= loan.date_p1.strftime('%d/%m/%Y')%>)</span></td>
+                      <% end %>
+                      <% if loan.paid_p2 %>
+                        <td><span class='text-success'>R$ <%= loan.portion2%> (<%= loan.date_p2.strftime('%d/%m/%Y')%>)</span></td>
+                      <% else %>
+                        <td><span class='text-danger'>R$ <%= loan.portion2%> (<%= loan.date_p2.strftime('%d/%m/%Y')%>)</span></td>
+                      <% end %>
+                      <% if loan.paid_p3 %>
+                        <td><span class='text-success'>R$ <%= loan.portion3%> (<%= loan.date_p3.strftime('%d/%m/%Y')%>)</span></td>
+                      <% else %>
+                      <td><span class='text-danger'>R$ <%= loan.portion3%> (<%= loan.date_p3.strftime('%d/%m/%Y')%>)</span></td>
+                      <% end %>
+                    </tr>
                   <% end %>
-                  <tr>
-                    <td><b>Total</b></td>
-                    <td></td>
-                    <td></td>
-                    <td>R$ <%= @loans.sum { |loan| loan.amount }%></td>
-                    <td>R$ <%= @loans.sum { |loan| loan.portion1 }%></td>
-                    <td>R$ <%= @loans.sum { |loan| loan.portion2 }%></td>
-                    <td>R$ <%= @loans.sum { |loan| loan.portion3 }%></td>
-                  </tr>
                 <% end %>
+                <tr>
+                  <td><b>Total</b></td>
+                  <td></td>
+                  <td></td>
+                  <td>R$ <%= @loans.sum{ |loan| loan.amount }%></td>
+                  <td>R$ <%= @loans.select{ |loan| !loan.paid_p1 }.sum{ |loan| loan.portion1 }%></td>
+                  <td>R$ <%= @loans.select{ |loan| !loan.paid_p2 }.sum{ |loan| loan.portion2 }%></td>
+                  <td>R$ <%= @loans.select{ |loan| !loan.paid_p3 }.sum{ |loan| loan.portion3 }%></td>
+                </tr>
               </table>
             </div>
         </div>

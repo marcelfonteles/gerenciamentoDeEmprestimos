@@ -19,6 +19,40 @@ class LoansController < ApplicationController
     end
   end
   
+  def loan 
+    @loan = Loan.find(params[:id])
+  end
+  
+  def confirm_payment
+    @loan = Loan.find(params[:id])
+    if params[:portion].to_i == 1
+      @loan.update(paid_p1: true)
+      flash[:notice] = "Pagamento confirmado da 1ª parcela"
+    elsif  params[:portion].to_i == 2
+      @loan.update(paid_p2: true)
+      flash[:notice] = "Pagamento confirmado da 2ª parcela"
+    elsif params[:portion].to_i == 3
+      @loan.update(paid_p3: true)
+      flash[:notice] = "Pagamento confirmado da 3ª parcela"
+    end
+    redirect_to loan_path(params[:id])
+  end
+  
+  def cancel_payment
+    @loan = Loan.find(params[:id])
+    if params[:portion].to_i == 1
+      @loan.update(paid_p1: false)
+      flash[:notice] = "Pagamento da 1ª parcela cancelado"
+    elsif  params[:portion].to_i == 2
+      @loan.update(paid_p2: false)
+      flash[:notice] = "Pagamento da 2ª parcela cancelado"
+    elsif params[:portion].to_i == 3
+      @loan.update(paid_p3: false)
+      flash[:notice] = "Pagamento da 3ª parcela cancelado"
+    end
+    redirect_to loan_path(params[:id])
+  end
+  
   def filtering
     redirect_to filtered_loan_path(params[:date])
   end
