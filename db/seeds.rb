@@ -7,6 +7,6 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 User.create(email:'email@email.com', password:'password')
 3.times do 
-  Loan.create(amount: 1000.00, firstPayment: '1994-12-05', name: "Marcel", store:"Loja 1", portion1: 250, portion2: 300, portion3: 240)
-  Loan.create(amount: 1250.00, firstPayment: '1994-12-05', name: "José", store:"Loja 2", portion1: 250, portion2: 300, portion3: 240)
+  Loan.create(amount: 1000.00, firstPayment: '1994-12-05', name: "Marcel", store:"Loja 1", portion1: 250, portion2: 300, portion3: 240, date_p1: DateTime.now, date_p2: DateTime.now, date_p3: DateTime.now)
+  Loan.create(amount: 1250.00, firstPayment: '1994-12-05', name: "José", store:"Loja 2", portion1: 250, portion2: 300, portion3: 240, date_p1: DateTime.now, date_p2: DateTime.now, date_p3: DateTime.now)
 end

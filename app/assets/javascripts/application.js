@@ -51,9 +51,18 @@ document.addEventListener("turbolinks:load", function() {
     };
   });
   $("#cancel-loan").click(function() {
-    $(".form-control").val("");
+    $(".clear-field").val("");
     $("#new-loan").removeClass("d-none");
     $("#new-loan-form").addClass("d-none");
     $("#cancel-loan").addClass("d-none");
   });
+  $("#filter-button").click(function() {
+    console.log($("#filter-input").val() != '');
+    if ($("#filter-input").val() != '') {
+      $.ajax({
+        method: 'get',
+        url: '/loan/filtro/' + $("#filter-input").val()
+      });
+    } 
+  })
 })
