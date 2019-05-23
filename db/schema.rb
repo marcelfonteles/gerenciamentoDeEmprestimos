@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_22_230400) do
+ActiveRecord::Schema.define(version: 2019_05_23_165839) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,9 @@ ActiveRecord::Schema.define(version: 2019_05_22_230400) do
     t.date "date_p1"
     t.date "date_p2"
     t.date "date_p3"
+    t.boolean "paid_p1"
+    t.boolean "paid_p2"
+    t.boolean "paid_p3"
   end
 
   create_table "users", force: :cascade do |t|
