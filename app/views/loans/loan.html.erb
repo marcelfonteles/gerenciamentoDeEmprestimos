@@ -32,19 +32,19 @@
                   <td><%= @loan.store %></td>
                   <td><%= @loan.amount %></td>
                   <% if @loan.paid_p1 %>
-                    <td><span class='text-success'><%= @loan.portion1 %></span></td>
+                    <td><span class='text-success'><%= @loan.portion1 %> (<%= @loan.date_p1.strftime('%d/%m/%Y')%>)</span></td>
                   <% else %>
-                    <td><span class='text-danger'><%= @loan.portion1 %></span></td>
+                    <td><span class='text-danger'><%= @loan.portion1 %> (<%= @loan.date_p1.strftime('%d/%m/%Y')%>)</span></td>
                   <% end %>
                   <% if @loan.paid_p2 %>
-                    <td><span class='text-success'><%= @loan.portion2 %></span></td>
+                    <td><span class='text-success'><%= @loan.portion2 %> (<%= @loan.date_p2.strftime('%d/%m/%Y')%>)</span></td>
                   <% else %>
-                    <td><span class='text-danger'><%= @loan.portion2 %></span></td>
+                    <td><span class='text-danger'><%= @loan.portion2 %> (<%= @loan.date_p2.strftime('%d/%m/%Y')%>)</span></td>
                   <% end %>
                   <% if @loan.paid_p3 %>
-                    <td><span class='text-success'><%= @loan.portion3 %></span></td>
+                    <td><span class='text-success'><%= @loan.portion3 %> (<%= @loan.date_p3.strftime('%d/%m/%Y')%>)</span></td>
                   <% else %>
-                    <td><span class='text-danger'><%= @loan.portion3 %></span></td>
+                    <td><span class='text-danger'><%= @loan.portion3 %> (<%= @loan.date_p3.strftime('%d/%m/%Y')%>)</span></td>
                   <% end %>
                 </tr>
                 <tr>

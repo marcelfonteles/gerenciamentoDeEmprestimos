@@ -112,7 +112,7 @@
                     <tr style="font-weight: normal">
                       <td><%= @count %>.</td>
                       <% @count += 1 %>
-                      <td><%= loan.name%></td>
+                      <td><%= link_to loan.name, loan_path(loan.id) %></td>
                       <td><%= loan.store%></td>
                       <td>R$ <%= loan.amount%></td>
                       <% if loan.paid_p1 %>
