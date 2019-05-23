@@ -13,7 +13,7 @@ class LoansController < ApplicationController
   def create
     @loan = Loan.new(loans_params)
     if @loan.save
-      puts "Salvo com sucesso"
+      puts "Salvo com sucesso" 
     else 
       flash[:notice] = "Não cadastrado."
     end
