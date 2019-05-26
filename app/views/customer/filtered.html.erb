@@ -1,0 +1,91 @@
+   <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        Painel de Controle
+      </h1>
+      
+    </section>
+ 
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        
+        <div class='col-md-4'>
+          <h2>Mês: <%= @filter %></h2>
+        </div>
+        <div class='col-md-4'>
+          <h2>Cliente: <%= @cliente.name %></h2>
+        </div>
+        
+      </div>
+      
+      <!-- Main row -->
+      <div class="row">
+        <div class='col-md-12'>
+          <div class="box">
+            <div class="box-header with-border">
+              <h3 class="box-title">Emprestimos</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <table class="table table-striped">
+                <tr>
+                  <th style="width: 10px">#</th>
+                  <th>Loja</th>
+                  <th>Valor</th>
+                  <th>Parcela</th>
+                </tr>
+                <% @count = 1%>
+                <% if !@loans.nil?%>
+                  <% @loans.each do |loan|%>
+                    <% if (loan.date_p1.month == @mes and loan.date_p1.year == @ano)%>
+                      <tr style='font-weight: normal'>
+                        <td><%= @count%></td>
+                        <td><%= loan.store%></td>
+                        <td><%= loan.portion1%> (<%= loan.date_p1.strftime('%d/%m/%y')%>)</td>
+                        <td>Parcela 1</td>
+                        <% @count += 1%>
+                      </tr>
+                    <% end %>
+                    
+                    <% if (loan.date_p2.month == @mes and loan.date_p2.year == @ano)%>
+                      <tr style='font-weight: normal'>
+                        <td><%= @count%></td>
+                        <td><%= loan.store%></td>
+                        <td><%= loan.portion2%> (<%= loan.date_p2.strftime('%d/%m/%y')%>)</td>
+                        <td>Parcela 2</td>
+                        <% @count += 1%>
+                      </tr>
+                    <% end %>
+                    
+                    <% if (loan.date_p3.month == @mes and loan.date_p3.year == @ano)%>
+                      <tr style='font-weight: normal'>
+                        <td><%= @count%></td>
+                        <td><%= loan.store%></td>
+                        <td><%= loan.portion3%> (<%= loan.date_p3.strftime('%d/%m/%y')%>)</td>
+                        <td>Parcela 3</td>
+                        <% @count += 1%>
+                      </tr>
+                    <% end %>
+                  <% end %>
+                <% end%>
+                <tr>
+                  <% @sum_p1 = @loans.select{ |loan| (loan.date_p1.month == @mes and loan.date_p1.year == @ano) }.sum{ |loan| loan.portion1 }%>
+                  <% @sum_p2 = @loans.select{ |loan| (loan.date_p2.month == @mes and loan.date_p2.year == @ano) }.sum{ |loan| loan.portion2 }%>
+                  <% @sum_p3 = @loans.select{ |loan| (loan.date_p3.month == @mes and loan.date_p3.year == @ano) }.sum{ |loan| loan.portion3 }%>
+                  <td>Total:</td>
+                  <td></td>
+                  <td><%= @sum_p1 + @sum_p2 + @sum_p3 %></td>
+                    
+                </tr>
+              </table>
+              <%= link_to 'Voltar', show_customer_path(@customer_id), class: 'btn btn-primary'%>
+            </div>
+        </div>
+      </div>
+      <!-- /.row (main row) -->
+    </section>
+    <!-- /.content -->
+  </div>
+

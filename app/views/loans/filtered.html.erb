@@ -17,9 +17,10 @@
         <div class='col-md-4'>
           <p>Filtro: <%= @filter %></p>
         </div>
+        
         <div class='col-md-4'>
           <%= form_with url: '/loan/filtro', remote: false do |f| %>
-            <%= f.select :date, @loansFilter, class:'form-control'%>
+            <%= f.select :date, @filter, class:'form-control'%>
             <%= f.submit 'Filtrar', class:'btn btn-primary btn-sm'%>
           <% end %>
         </div>

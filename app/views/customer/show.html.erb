@@ -8,70 +8,81 @@
     <section class="content">
       <div class="row">
         <div class='col-md-12'>
-          <button class='btn btn-primary' id='new-loan'>Novo Emprestimo</button>
+          <div class='row'>
+            <div class='col-md-6'>
+              <button class='btn btn-primary' id='new-loan'>Novo Emprestimo</button>
+            </div>
+            <div class='col-md-4'>
+              <%= form_with url: '/customer/filtro', remote: false do |f| %>
+                <%= f.select :date, @filter, class:'form-control'%>
+                <div class='d-none'><%= f.text_field :customer_id, value: @customer.id %></div>
+                <%= f.submit 'Filtrar', class:'btn btn-primary btn-sm'%>
+              <% end %>
+            </div>            
+          </div>
           <div class="box box-primary d-none" id="new-loan-form">
-        <div class="box-header with-border">
-          <h3 class="box-title">Novo Cliente</h3>
+            <div class="box-header with-border">
+              <h3 class="box-title">Novo Cliente</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+            <%= form_with  model: @newLoan, url: '/loan/createloan' do |f| %>
+              <!-- text input -->
+              <div class='d-none'>
+                <%= f.text_field :customer_id, class:'form-control clear-field', value: @customer.id%>
+              </div>
+              <div class="form-group">
+                <label>Loja</label>
+                <%= f.text_field :store, class:'form-control clear-field'%>
+              </div>
+              <div class="form-group">
+                <label>Valor</label>
+                <%= f.text_field :amount, class:'form-control clear-field'%>
+              </div>
+              <div class="form-group">
+                <div class='row'>
+                  <div class='col-md-3'>
+                    <label>Parcela 1</label>
+                    <%= f.text_field :portion1, class:'form-control clear-field'%>
+                  </div>
+                  <div class='col-md-3'>
+                    <label>Pagamento da 1ª parcela</label>
+                    <%= f.text_field :date_p1, class:'form-control', value: @p1.strftime('%d/%m/%Y'), id:'date_p1'%>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class='row'>
+                  <div class='col-md-3'>
+                    <label>Parcela 2</label>
+                    <%= f.text_field :portion2, class:'form-control clear-field'%>
+                  </div>
+                  <div class='col-md-3'>
+                    <label>Pagamento da 2ª parcela</label>
+                    <%= f.text_field :date_p2, class:'form-control', value: @p2.strftime('%d/%m/%Y'), id:'date_p2'%>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class='row'>
+                  <div class='col-md-3'>
+                    <label>Parcela 3</label>
+                    <%= f.text_field :portion3, class:'form-control clear-field'%>
+                  </div>
+                  <div class='col-md-3'>
+                    <label>Pagamento da 3ª parcela</label>
+                    <%= f.text_field :date_p3, class:'form-control', value: @p3.strftime('%d/%m/%Y'), id:'date_p3'%>
+                  </div>
+                </div>
+              </div>
+              <div class="box-footer">
+                <%= f.submit "Cadastrar", class:'btn btn-primary', id:'new-loan-submit'%>
+              </div>
+            <% end %>
+          </div>
         </div>
-        <!-- /.box-header -->
-        <div class="box-body">
-          <%= form_with  model: @newLoan, url: '/loan/createloan' do |f| %>
-            <!-- text input -->
-            <div class='d-none'>
-              <%= f.text_field :customer_id, class:'form-control clear-field', value: @customer.id%>
-            </div>
-            <div class="form-group">
-              <label>Loja</label>
-              <%= f.text_field :store, class:'form-control clear-field'%>
-            </div>
-            <div class="form-group">
-              <label>Valor</label>
-              <%= f.text_field :amount, class:'form-control clear-field'%>
-            </div>
-            <div class="form-group">
-              <div class='row'>
-                <div class='col-md-3'>
-                  <label>Parcela 1</label>
-                  <%= f.text_field :portion1, class:'form-control clear-field'%>
-                </div>
-                <div class='col-md-3'>
-                  <label>Pagamento da 1ª parcela</label>
-                  <%= f.text_field :date_p1, class:'form-control', value: @p1.strftime('%d/%m/%Y'), id:'date_p1'%>
-                </div>
-              </div>
-            </div>
-            <div class="form-group">
-              <div class='row'>
-                <div class='col-md-3'>
-                  <label>Parcela 2</label>
-                  <%= f.text_field :portion2, class:'form-control clear-field'%>
-                </div>
-                <div class='col-md-3'>
-                  <label>Pagamento da 2ª parcela</label>
-                  <%= f.text_field :date_p2, class:'form-control', value: @p2.strftime('%d/%m/%Y'), id:'date_p2'%>
-                </div>
-              </div>
-            </div>
-            <div class="form-group">
-              <div class='row'>
-                <div class='col-md-3'>
-                  <label>Parcela 3</label>
-                  <%= f.text_field :portion3, class:'form-control clear-field'%>
-                </div>
-                <div class='col-md-3'>
-                  <label>Pagamento da 3ª parcela</label>
-                  <%= f.text_field :date_p3, class:'form-control', value: @p3.strftime('%d/%m/%Y'), id:'date_p3'%>
-                </div>
-              </div>
-            </div>
-            <div class="box-footer">
-              <%= f.submit "Cadastrar", class:'btn btn-primary', id:'new-loan-submit'%>
-            </div>
-          <% end %>
-        </div>
-      </div>
-      <hr>
-          <div class="box">
+        <hr>
+        <div class="box">
             <div class="box-header with-border">
               <h3 class="box-title">Cliente</h3>
             </div>

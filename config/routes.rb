@@ -25,6 +25,8 @@ Rails.application.routes.draw do
     get 'index', to: 'customer#index'
     post 'createcustomer', to:'customer#create', as: 'create_customer'
     get ':id', to: 'customer#show', as: 'show_customer'
+    post 'filtro', to:'customer#filtering', as: 'filtering_customer_loan'
+    get 'resultado/:customer_id/:date/', to:'customer#filtered', as: 'filtered_customer_loan'
   end
   
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
