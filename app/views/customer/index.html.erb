@@ -90,7 +90,7 @@
                   <% else %>
                     <td><span class='text-danger'><%= loan.portion3 %> (<%= loan.date_p3.strftime('%d/%m/%Y')%>)</span></td>
                   <% end %>
-                        <td></td>
+                        <td><%= link_to 'Apagar', destroy_loan_path(loan.id), class:'btn btn-danger', method: :delete, data: {confirm: 'Tem certeza que deseja apagar?'}%></td>
                         <% @count += 1 %>
                       </tr>
                     <% end %>
