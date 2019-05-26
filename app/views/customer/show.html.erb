@@ -1,36 +1,24 @@
-   <div class="content-wrapper">
+<div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
         Painel de Controle
       </h1>
     </section>
- 
-    <!-- Main content -->
     <section class="content">
       <div class="row">
-        <div class='col-md-8'>
-          <button class='btn btn-primary' id='new-loan' style="margin-bottom: 5px">Novo Cliente</button>
-          <button class='btn btn-danger d-none' id='cancel-loan' style="margin-bottom: 5px">Cancelar</button>
-        </div>
-        <div class='col-md-4'>
-          <%= form_with url: '/loan/filtro', remote: false do |f| %>
-            <%= f.select :date, @loansFilter, class:'form-control'%>
-            <%= f.submit 'Filtrar', class:'btn btn-primary btn-sm'%>
-          <% end %>
-        </div>
-      </div>
-      <div class="box box-primary d-none" id="new-loan-form">
+        <div class='col-md-12'>
+          <button class='btn btn-primary' id='new-loan'>Novo Emprestimo</button>
+          <div class="box box-primary d-none" id="new-loan-form">
         <div class="box-header with-border">
           <h3 class="box-title">Novo Cliente</h3>
         </div>
         <!-- /.box-header -->
         <div class="box-body">
-          <%= form_with  model: @newCustomer, url: '/loan/createCustomer' do |f| %>
+          <%= form_with  model: @newLoan, url: '/loan/createloan' do |f| %>
             <!-- text input -->
-            <div class="form-group">
-              <label>Nome</label>
-              <%= f.text_field :name, class:'form-control clear-field'%>
+            <div class='d-none'>
+              <%= f.text_field :customer_id, class:'form-control clear-field', value: @customer.id%>
             </div>
             <div class="form-group">
               <label>Loja</label>
@@ -79,71 +67,71 @@
             <div class="box-footer">
               <%= f.submit "Cadastrar", class:'btn btn-primary', id:'new-loan-submit'%>
             </div>
-            
           <% end %>
         </div>
       </div>
-      <!-- Main row -->
-      <div class="row">
-        <div class='col-md-12'>
+      <hr>
           <div class="box">
             <div class="box-header with-border">
-              <h3 class="box-title">Emprestimos</h3>
+              <h3 class="box-title">Cliente</h3>
             </div>
-            <!-- /.box-header -->
             <div class="box-body">
               <table class="table table-striped">
                 <tr>
                   <th style="width: 10px">#</th>
                   <th>Nome</th>
-                  <th>Loja</th>
-                  <th>Valor</th>
-                  <th>1ª Parcela</th>
-                  <th>2ª Parcela</th>
-                  <th>3ª Parcela</th>
-                  <th>Opções</th>
                 </tr>
-                <% @count = 1%>
-                <% @loans.each do |loan| %>
                 <tr style="font-weight: normal">
-                  <td><%= @count %>.</td>
-                  <% @count += 1 %>
-                  <td><%= link_to loan.name, loan_path(loan.id)%></td>
-                  <td><%= loan.store%></td>
-                  <td>R$ <%= loan.amount%></td>
-                  <% if loan.paid_p1 %>
-                    <td><span class='text-success'>R$ <%= loan.portion1%> (<%= loan.date_p1.strftime('%d/%m/%Y')%>)</span></td>
-                  <% else %>
-                    <td><span class='text-danger'>R$ <%= loan.portion1%> (<%= loan.date_p1.strftime('%d/%m/%Y')%>)</span></td>
-                  <% end %>
-                  <% if loan.paid_p2 %>
-                    <td><span class='text-success'>R$ <%= loan.portion2%> (<%= loan.date_p2.strftime('%d/%m/%Y')%>)</span></td>
-                  <% else %>
-                    <td><span class='text-danger'>R$ <%= loan.portion2%> (<%= loan.date_p2.strftime('%d/%m/%Y')%>)</span></td>
-                  <% end %>
-                  <% if loan.paid_p3 %>
-                    <td><span class='text-success'>R$ <%= loan.portion3%> (<%= loan.date_p3.strftime('%d/%m/%Y')%>)</span></td>
-                  <% else %>
-                  <td><span class='text-danger'>R$ <%= loan.portion3%> (<%= loan.date_p3.strftime('%d/%m/%Y')%>)</span></td>
-                  <% end %>
-                  <td><%= link_to "Apagar", destroy_loan_path(loan.id), class:'btn btn-danger btn-sm btn-rounded', method: :delete, data: {confirm: 'Tem certeza que deseja apagar o emprestimo?'}%></td>
-                </tr>
-                <% end %>
-                <tr>
-                  <td><b>Total</b></td>
-                  <td></td>
-                  <td></td>
-                  <td>R$ <%= @loans.sum{ |loan| loan.amount }%></td>
-                  <td>R$ <%= @loans.select{ |loan| !loan.paid_p1 }.sum{ |loan| loan.portion1 }%></td>
-                  <td>R$ <%= @loans.select{ |loan| !loan.paid_p2 }.sum{ |loan| loan.portion2 }%></td>
-                  <td>R$ <%= @loans.select{ |loan| !loan.paid_p3 }.sum{ |loan| loan.portion3 }%></td>
-                  <td></td>
+                  <td>1</td>
+                  <td><%= @customer.name %></td>
                 </tr>
               </table>
             </div>
+          </div>
+          <div class="box">
+            <div class="box-header with-border">
+              <h3 class="box-title">Emprestimo</h3>
+            </div>
+            <div class="box-body">
+               <table class="table table-striped">
+                <tr>
+                  <th style="width: 10px">#</th>
+                  <th>Loja</th>
+                  <th>Valor da compra</th>
+                  <th>1ª Parcela</th>
+                  <th>2ª Parcela</th>
+                  <th>3ª Parcela</th>
+                </tr>
+                <% @count = 1 %>
+                <% @customer.loans.each do |loan|%>
+                <tr style="font-weight: normal">
+                  <td><%= @count %></td>
+                  <td><%= link_to loan.store, loan_path(loan.id) %></td>
+                  <td><%= loan.amount %></td>
+                  <% if loan.paid_p1 %>
+                    <td><span class='text-success'><%= loan.portion1 %> (<%= loan.date_p1.strftime('%d/%m/%Y')%>)</span></td>
+                  <% else %>
+                    <td><span class='text-danger'><%= loan.portion1 %> (<%= loan.date_p1.strftime('%d/%m/%Y')%>)</span></td>
+                  <% end %>
+                  <% if loan.paid_p2 %>
+                    <td><span class='text-success'><%= loan.portion2 %> (<%= loan.date_p2.strftime('%d/%m/%Y')%>)</span></td>
+                  <% else %>
+                    <td><span class='text-danger'><%= loan.portion2 %> (<%= loan.date_p2.strftime('%d/%m/%Y')%>)</span></td>
+                  <% end %>
+                  <% if loan.paid_p3 %>
+                    <td><span class='text-success'><%= loan.portion3 %> (<%= loan.date_p3.strftime('%d/%m/%Y')%>)</span></td>
+                  <% else %>
+                    <td><span class='text-danger'><%= loan.portion3 %> (<%= loan.date_p3.strftime('%d/%m/%Y')%>)</span></td>
+                  <% end %>
+
+
+                  <% @count += 1%>
+                </tr>
+                <% end %>
+              </table>
+              <%= link_to 'Voltar', root_path, class:'btn btn-primary btn-sm'%>
+            </div>
+          </div>
         </div>
       </div>
-      <!-- /.row (main row) -->
     </section>
-    <!-- /.content -->
-  </div>

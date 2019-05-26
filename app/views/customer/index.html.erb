@@ -1,0 +1,122 @@
+   <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        Painel de Controle
+      </h1>
+    </section>
+ 
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <div class='col-md-8'>
+          <button class='btn btn-primary' id='new-loan' style="margin-bottom: 5px">Novo Cliente</button>
+          <button class='btn btn-danger d-none' id='cancel-loan' style="margin-bottom: 5px">Cancelar</button>
+        </div>
+        
+      </div>
+      <div class="box box-primary d-none" id="new-loan-form">
+        <div class="box-header with-border">
+          <h3 class="box-title">Novo Cliente</h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+          <%= form_with  model: @newCustomer, url: '/customer/createcustomer' do |f| %>
+            <!-- text input -->
+            <div class="form-group">
+              <label>Nome</label>
+              <%= f.text_field :name, class:'form-control clear-field'%>
+            </div>
+            <div class="form-group">
+              <label>CPF</label>
+              <%= f.text_field :cpf, class:'form-control clear-field'%>
+            </div>
+            <div class="form-group">
+              <label>Endereço</label>
+              <%= f.text_field :address, class:'form-control clear-field'%>
+            </div>
+            <div class="form-group">
+              <label>Telefone</label>
+              <%= f.text_field :phone, class:'form-control clear-field'%>
+            </div>
+            <div class="box-footer">
+              <%= f.submit "Cadastrar", class:'btn btn-primary', id:'new-loan-submit'%>
+            </div>
+            
+          <% end %>
+        </div>
+      </div>
+      <!-- Main row -->
+      <div class="row">
+        <div class='col-md-12'>
+          <div class="box">
+            <div class="box-header with-border">
+              <h3 class="box-title">Emprestimos</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <table class="table table-striped">
+                <tr>
+                  <th style="width: 10px">#</th>
+                  <th>Nome</th>
+                  <th>Loja</th>
+                  <th>Valor</th>
+                  <th>1ª Parcela</th>
+                  <th>2ª Parcela</th>
+                  <th>3ª Parcela</th>
+                  <th>Opções</th>
+                </tr>
+                <% @count = 1%>
+                <% @customer.each do |customer| %>
+                  <% if customer.loans.any? %>
+                    <% customer.loans.each do |loan| %>
+    	                <tr style="font-weight: normal">
+    	                	<td><%= @count %></td>
+    	                	<td><%= link_to customer.name, show_customer_path(customer.id) %></td>
+                        <td><%= loan.store %></td>
+                        <td><%= loan.amount %></td>
+                       <% if loan.paid_p1 %>
+                    <td><span class='text-success'><%= loan.portion1 %> (<%= loan.date_p1.strftime('%d/%m/%Y')%>)</span></td>
+                  <% else %>
+                    <td><span class='text-danger'><%= loan.portion1 %> (<%= loan.date_p1.strftime('%d/%m/%Y')%>)</span></td>
+                  <% end %>
+                  <% if loan.paid_p2 %>
+                    <td><span class='text-success'><%= loan.portion2 %> (<%= loan.date_p2.strftime('%d/%m/%Y')%>)</span></td>
+                  <% else %>
+                    <td><span class='text-danger'><%= loan.portion2 %> (<%= loan.date_p2.strftime('%d/%m/%Y')%>)</span></td>
+                  <% end %>
+                  <% if loan.paid_p3 %>
+                    <td><span class='text-success'><%= loan.portion3 %> (<%= loan.date_p3.strftime('%d/%m/%Y')%>)</span></td>
+                  <% else %>
+                    <td><span class='text-danger'><%= loan.portion3 %> (<%= loan.date_p3.strftime('%d/%m/%Y')%>)</span></td>
+                  <% end %>
+                        <td></td>
+                        <% @count += 1 %>
+                      </tr>
+                    <% end %>
+                  <% else %>
+                    <tr style="font-weight: normal"> 
+                      <td><%= @count%></td>
+                      <td><%= link_to customer.name, show_customer_path(customer.id) %></td>
+                      <% @count += 1 %>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                  <% end %>
+	                	
+	                
+                <% end %>
+                	
+                </tr>
+              </table>
+            </div>
+        </div>
+      </div>
+      <!-- /.row (main row) -->
+    </section>
+    <!-- /.content -->
+  </div>

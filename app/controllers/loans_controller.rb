@@ -13,9 +13,11 @@ class LoansController < ApplicationController
   def create
     @loan = Loan.new(loans_params)
     if @loan.save
-      puts "Salvo com sucesso" 
+      puts "Salvo com sucesso"
+      redirect_to show_customer_path(params[:loan][:customer_id])
     else 
       flash[:notice] = "Não cadastrado."
+      redirect_to show_customer_path(params[:loan][:customer_id])
     end
   end
   
@@ -80,7 +82,7 @@ class LoansController < ApplicationController
   private
   
   def loans_params
-    params.require(:loan).permit(:amount, :name, :store, :portion1, :portion2, :portion3, :date_p1, :date_p2, :date_p3, :date)
+    params.require(:loan).permit(:customer_id, :amount, :store, :portion1, :portion2, :portion3, :date_p1, :date_p2, :date_p3)
   end
   
   def loans_filter
