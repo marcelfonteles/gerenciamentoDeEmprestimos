@@ -74,8 +74,9 @@ class LoansController < ApplicationController
   
   def destroy_loan
     @loan = Loan.find(params[:id])
+    @customer_id = @loan.customer_id
     if @loan.destroy
-      redirect_to root_path
+      redirect_to show_customer_path(@customer_id)
     end
   end
   

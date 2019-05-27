@@ -51,7 +51,7 @@
         <div class='col-md-12'>
           <div class="box">
             <div class="box-header with-border">
-              <h3 class="box-title">Emprestimos</h3>
+              <h3 class="box-title">Clientes</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -59,52 +59,29 @@
                 <tr>
                   <th style="width: 10px">#</th>
                   <th>Nome</th>
-                  <th>Loja</th>
-                  <th>Valor</th>
-                  <th>1ª Parcela</th>
-                  <th>2ª Parcela</th>
-                  <th>3ª Parcela</th>
-                  <th>Opções</th>
+                  <th>Valor a receber</th>
+                  <th>Informações</th>
                 </tr>
                 <% @count = 1%>
                 <% @customer.each do |customer| %>
                   <% if customer.loans.any? %>
-                    <% customer.loans.each do |loan| %>
-    	                <tr style="font-weight: normal">
-    	                	<td><%= @count %></td>
-    	                	<td><%= link_to customer.name, show_customer_path(customer.id) %></td>
-                        <td><%= loan.store %></td>
-                        <td><%= loan.amount %></td>
-                       <% if loan.paid_p1 %>
-                    <td><span class='text-success'><%= loan.portion1 %> (<%= loan.date_p1.strftime('%d/%m/%Y')%>)</span></td>
-                  <% else %>
-                    <td><span class='text-danger'><%= loan.portion1 %> (<%= loan.date_p1.strftime('%d/%m/%Y')%>)</span></td>
-                  <% end %>
-                  <% if loan.paid_p2 %>
-                    <td><span class='text-success'><%= loan.portion2 %> (<%= loan.date_p2.strftime('%d/%m/%Y')%>)</span></td>
-                  <% else %>
-                    <td><span class='text-danger'><%= loan.portion2 %> (<%= loan.date_p2.strftime('%d/%m/%Y')%>)</span></td>
-                  <% end %>
-                  <% if loan.paid_p3 %>
-                    <td><span class='text-success'><%= loan.portion3 %> (<%= loan.date_p3.strftime('%d/%m/%Y')%>)</span></td>
-                  <% else %>
-                    <td><span class='text-danger'><%= loan.portion3 %> (<%= loan.date_p3.strftime('%d/%m/%Y')%>)</span></td>
-                  <% end %>
-                        <td><%= link_to 'Apagar', destroy_loan_path(loan.id), class:'btn btn-danger', method: :delete, data: {confirm: 'Tem certeza que deseja apagar?'}%></td>
-                        <% @count += 1 %>
+    	               <tr style="font-weight: normal">
+    	              	<td><%= @count %></td>
+                      <td><%= customer.name%></td>
+                      <% @p1 = customer.loans.select{ |loan| !loan.paid_p1 }.sum{|loan| loan.portion1 }%>
+                      <% @p2 = customer.loans.select{ |loan| !loan.paid_p2 }.sum{|loan| loan.portion2 }%>
+                      <% @p3 = customer.loans.select{ |loan| !loan.paid_p3 }.sum{|loan| loan.portion3 }%>
+                      <td>R$ <%= (@p1 + @p2 + @p3).round(2) %></td>
+                      <td><%= link_to "Ver Emprestimos", show_customer_path(customer.id), class:'btn btn-primary btn-sm' %></td>
+                      <% @count += 1 %>
                       </tr>
-                    <% end %>
                   <% else %>
                     <tr style="font-weight: normal"> 
                       <td><%= @count%></td>
-                      <td><%= link_to customer.name, show_customer_path(customer.id) %></td>
+                      <td><%= customer.name%></td>
+                      <td> R$ 0 </td>
+                      <td><%= link_to "Ver Emprestimos", show_customer_path(customer.id), class:'btn btn-primary btn-sm' %></td>
                       <% @count += 1 %>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
                     </tr>
                   <% end %>
 	                	
