@@ -28,19 +28,45 @@ class CustomerController < ApplicationController
   end
   
   def filtered
-    @mes = params[:date][0..1].to_i
-    @ano = params[:date][3..7].to_i
+    @mes = params[:date][0..1]
+    @ano = params[:date][3..7]
     @customer_id = params[:customer_id]
-    puts @customer_id
     @cliente = Customer.find(params[:customer_id])
     @filter = params[:date]
-    @loans = Loan.select {|loan| loan.customer_id == @customer_id.to_i}
-    puts @loans
-    @loans = @loans.select {|loan| (loan.date_p1.month == params[:date][0..1].to_i and loan.date_p1.year == params[:date][3..7].to_i) or 
-                                    (loan.date_p2.month == params[:date][0..1].to_i and loan.date_p2.year == params[:date][3..7].to_i) or 
-                                    (loan.date_p3.month == params[:date][0..1].to_i and loan.date_p2.year == params[:date][3..7].to_i)
-                              }
+    # Retorna os emprestimos filtrados
+    @loans = selecting_loans(params[:date], params[:customer_id])
+  end
 
+  def confirm_payment
+    @loans = selecting_loans(params[:date], params[:customer_id])
+    @loans.each do |loan|
+      if loan.date_p1.month == params[:date][0..1].to_i and loan.date_p1.year == params[:date][3..7].to_i
+        loan.update(paid_p1: true)
+      end
+      if loan.date_p2.month == params[:date][0..1].to_i and loan.date_p2.year == params[:date][3..7].to_i
+        loan.update(paid_p2: true)
+      end 
+      if loan.date_p3.month == params[:date][0..1].to_i and loan.date_p3.year == params[:date][3..7].to_i
+        loan.update(paid_p3: true)
+      end        
+    end
+    redirect_to filtered_customer_loan_path(params[:customer_id], params[:date])
+  end
+
+  def cancel_payment
+    @loans = selecting_loans(params[:date], params[:customer_id])
+    @loans.each do |loan|
+      if loan.date_p1.month == params[:date][0..1].to_i and loan.date_p1.year == params[:date][3..7].to_i
+        loan.update(paid_p1: false)
+      end
+      if loan.date_p2.month == params[:date][0..1].to_i and loan.date_p2.year == params[:date][3..7].to_i
+        loan.update(paid_p2: false)
+      end 
+      if loan.date_p3.month == params[:date][0..1].to_i and loan.date_p3.year == params[:date][3..7].to_i
+        loan.update(paid_p3: false)
+      end        
+    end
+    redirect_to filtered_customer_loan_path(params[:customer_id], params[:date])
   end
 
 
@@ -73,5 +99,15 @@ class CustomerController < ApplicationController
       end
     end
     return @monthArray.uniq
+  end
+
+  def selecting_loans(date, id)
+    @loans = Loan.select {|loan| loan.customer_id == id.to_i}
+    @loans = @loans.select {|loan| (loan.date_p1.month == date[0..1].to_i and loan.date_p1.year == date[3..7].to_i) or 
+                                    (loan.date_p2.month == date[0..1].to_i and loan.date_p2.year == date[3..7].to_i) or 
+                                    (loan.date_p3.month == date[0..1].to_i and loan.date_p2.year == date[3..7].to_i)
+                              }
+
+    return @loans
   end
 end

@@ -27,6 +27,8 @@ Rails.application.routes.draw do
     get ':id', to: 'customer#show', as: 'show_customer'
     post 'filtro', to:'customer#filtering', as: 'filtering_customer_loan'
     get 'resultado/:customer_id/:date/', to:'customer#filtered', as: 'filtered_customer_loan'
+    get 'resultado/:customer_id/:date/confirm', to: 'customer#confirm_payment', as: 'confirm_customer_payments'
+    get 'resultado/:customer_id/:date/cancel', to: 'customer#cancel_payment', as: 'cancel_customer_payments'
   end
   
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
