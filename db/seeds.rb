@@ -52,16 +52,3 @@ Loan.create(customer_id: 1,
 	paid_p1: true, 
 	paid_p2: false, 
 	paid_p3: false)
-
-Loan.create(customer_id: 1, 
-	amount: 537.25, 
-	store:"Loja 1", 
-	portion1: 137.25121212121212111112, 
-	portion2: 200, 
-	portion3: 200, 
-	date_p1: DateTime.now + 100, 
-	date_p2: DateTime.now + 130, 
-	date_p3: DateTime.now + 160, 
-	paid_p1: true, 
-	paid_p2: false, 
-	paid_p3: false)
