@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   
   scope :loan do
     get 'index', to: 'loans#index'
+    get ':id/edit', to: 'loans#edit', as: 'edit_loan'
+    patch 'update', to: 'loans#update', as:'update_loan'
     post 'createloan', to: 'loans#create', as: 'create_loan'
     post 'filtro', to:'loans#filtering', as: 'filtering_loan'
     get 'resultado/:date', to:'loans#filtered', as: 'filtered_loan'
@@ -23,6 +25,9 @@ Rails.application.routes.draw do
 
   scope :customer do 
     get 'index', to: 'customer#index'
+    get ':id/edit', to: 'customer#edit', as: 'edit_customer'
+    patch 'update', to:'customer#update', as: 'update_customer'
+    delete ':id/destroy', to: 'customer#destroy', as: 'destroy_customer'
     post 'createcustomer', to:'customer#create', as: 'create_customer'
     get ':id', to: 'customer#show', as: 'show_customer'
     post 'filtro', to:'customer#filtering', as: 'filtering_customer_loan'

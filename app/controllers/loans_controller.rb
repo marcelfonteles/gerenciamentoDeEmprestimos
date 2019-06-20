@@ -20,6 +20,17 @@ class LoansController < ApplicationController
       redirect_to show_customer_path(params[:loan][:customer_id])
     end
   end
+
+  def edit
+    @loan = Loan.find(params[:id])
+    @customer_id = Customer.find(@loan.customer_id).id
+  end
+
+  def update
+    @loan = Loan.find(params[:loan][:id])
+    @loan.update(loans_params)
+    redirect_to show_customer_path(params[:loan][:customer_id])
+  end
   
   def loan 
     @loan = Loan.find(params[:id])

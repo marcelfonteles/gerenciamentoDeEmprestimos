@@ -40,7 +40,7 @@
               <%= f.text_field :phone, class:'form-control clear-field'%>
             </div>
             <div class="box-footer">
-              <%= f.submit "Cadastrar", class:'btn btn-primary', id:'new-loan-submit'%>
+              <%= f.submit "Cadastrar", class:'btn btn-primary', id:'new-loan-submit', id:'new-customer-submit'%>
             </div>
             
           <% end %>
@@ -72,7 +72,10 @@
                       <% @p2 = customer.loans.select{ |loan| !loan.paid_p2 }.sum{|loan| loan.portion2 }%>
                       <% @p3 = customer.loans.select{ |loan| !loan.paid_p3 }.sum{|loan| loan.portion3 }%>
                       <td>R$ <%= (@p1 + @p2 + @p3).round(2) %></td>
-                      <td><%= link_to "Ver Emprestimos", show_customer_path(customer.id), class:'btn btn-primary btn-sm' %></td>
+                      <td><%= link_to "Ver Emprestimos", show_customer_path(customer.id), class:'btn btn-primary btn-sm' %>
+                        <%= link_to "Editar Cliente", edit_customer_path(customer.id), class:'btn btn-secondary btn-sm' %>
+                        <%= link_to "Apagar Cliente", destroy_customer_path(customer.id), method: :delete, data: {confirm: "Tem certeza que deseja apagar o cliente #{customer.name}? Todos os emprestimos relacionados a esse cliente também serão apagados!" }, class:'btn btn-danger btn-sm'%>
+                      </td>
                       <% @count += 1 %>
                       </tr>
                   <% else %>
@@ -80,7 +83,9 @@
                       <td><%= @count%></td>
                       <td><%= customer.name%></td>
                       <td> R$ 0 </td>
-                      <td><%= link_to "Ver Emprestimos", show_customer_path(customer.id), class:'btn btn-primary btn-sm' %></td>
+                      <td><%= link_to "Ver Emprestimos", show_customer_path(customer.id), class:'btn btn-primary btn-sm' %>
+                        <%= link_to "Apagar Cliente", destroy_customer_path(customer.id), method: :delete, data: {confirm: "Tem certeza que deseja apagar o cliente #{customer.name}" }, class:'btn btn-danger btn-sm'%>
+                      </td>
                       <% @count += 1 %>
                     </tr>
                   <% end %>

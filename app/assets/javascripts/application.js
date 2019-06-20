@@ -71,5 +71,13 @@ document.addEventListener("turbolinks:load", function() {
     $("#loan_portion1").val(amount);
     $("#loan_portion2").val(amount);
     $("#loan_portion3").val(amount);
+  });
+
+  //New customer form validation
+  $("#new-customer-submit").click(function() {
+    if ($("#customer_name").val() == '') {
+      alert("O nome é obrigatório no cadastro de cliente!");
+    };
   })
+
 })
