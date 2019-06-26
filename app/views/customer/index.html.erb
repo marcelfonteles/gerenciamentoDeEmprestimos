@@ -84,6 +84,7 @@
                       <td><%= customer.name%></td>
                       <td> R$ 0 </td>
                       <td><%= link_to "Ver Emprestimos", show_customer_path(customer.id), class:'btn btn-primary btn-sm' %>
+                        <%= link_to "Editar Cliente", edit_customer_path(customer.id), class:'btn btn-secondary btn-sm' %>
                         <%= link_to "Apagar Cliente", destroy_customer_path(customer.id), method: :delete, data: {confirm: "Tem certeza que deseja apagar o cliente #{customer.name}" }, class:'btn btn-danger btn-sm'%>
                       </td>
                       <% @count += 1 %>
