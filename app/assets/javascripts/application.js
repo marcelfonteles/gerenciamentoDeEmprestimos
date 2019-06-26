@@ -20,6 +20,9 @@
 //= require_tree .
 
 document.addEventListener("turbolinks:load", function() {
+  var date1;
+  var date2;
+  var date3;
   
   $("#new-loan").click(function(){
     $("#new-loan").addClass("d-none");
@@ -30,12 +33,13 @@ document.addEventListener("turbolinks:load", function() {
     if ($("#loan_name").val() === '' || $("#loan_amount").val() === '' || $("#loan_store").val() === '' || $("#loan_portion1").val() === '' || $("#loan_portion2").val() === '' || $("#loan_portion3").val() === '' || $("#date_p1").val() === '' || $("#date_p2").val() === '' || $("#date_p3").val() === '') {
       alert("Todos os campos devem ser preenchidos corretamente.");
     } else {
-      var date1 = $("#date_p1").val().substr(6,4) + '-' + $("#date_p1").val().substr(3,2) + '-' + $("#date_p1").val().substr(0,2);
-      var date2 = $("#date_p2").val().substr(6,4) + '-' + $("#date_p2").val().substr(3,2) + '-' + $("#date_p2").val().substr(0,2);
-      var date3 = $("#date_p3").val().substr(6,4) + '-' + $("#date_p3").val().substr(3,2) + '-' + $("#date_p3").val().substr(0,2);
-      $("#date_p1").val(date1);
-      $("#date_p2").val(date2);
-      $("#date_p3").val(date3);  
+      // Old way: the date was generated in backend, counting 1, 2 and 3 months from now.
+      // var date1 = $("#date_p1").val().substr(6,4) + '-' + $("#date_p1").val().substr(3,2) + '-' + $("#date_p1").val().substr(0,2);
+      // var date2 = $("#date_p2").val().substr(6,4) + '-' + $("#date_p2").val().substr(3,2) + '-' + $("#date_p2").val().substr(0,2);
+      // var date3 = $("#date_p3").val().substr(6,4) + '-' + $("#date_p3").val().substr(3,2) + '-' + $("#date_p3").val().substr(0,2);
+      // $("#date_p1").val(date1);
+      // $("#date_p2").val(date2);
+      // $("#date_p3").val(date3);
       $("#new-loan").removeClass("d-none");
       $("#new-loan-form").addClass("d-none");
       $("#cancel-loan").addClass("d-none");
@@ -78,6 +82,27 @@ document.addEventListener("turbolinks:load", function() {
     if ($("#customer_name").val() == '') {
       alert("O nome é obrigatório no cadastro de cliente!");
     };
+  })
+
+  // New way to set date of payment
+  $("#date_p1").focusout(function () {
+      var month_p2 = parseInt($("#date_p1").val().substr(3, 2)) + 1;
+      var year = parseInt($("#date_p1").val().substr(6, 4));
+      if (month_p2 == 13) {
+          month_p2 = '01';
+          year += 1;
+      }
+
+      var month_p3 = parseInt($("#date_p1").val().substr(3, 2)) + 2;
+      if (month_p3 == 13) {
+          month_p3 = '01';
+      } else if (month_p3 == 14) {
+          month_p3 = '02';
+      }
+
+      $("#date_p2").val($("#date_p1").val().substr(0,2) + "/" + month_p2 + "/" + year);
+      $("#date_p3").val($("#date_p1").val().substr(0,2) + "/" + month_p3 + "/" + year);
+
   })
 
 })
