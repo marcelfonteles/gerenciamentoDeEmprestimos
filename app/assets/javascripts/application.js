@@ -91,6 +91,8 @@ document.addEventListener("turbolinks:load", function() {
       if (month_p2 == 13) {
           month_p2 = '01';
           year += 1;
+      } else if (month_p2 < 10) {
+          month_p2 = '0' + month_p2;
       }
 
       var month_p3 = parseInt($("#date_p1").val().substr(3, 2)) + 2;
@@ -98,6 +100,8 @@ document.addEventListener("turbolinks:load", function() {
           month_p3 = '01';
       } else if (month_p3 == 14) {
           month_p3 = '02';
+      } else if (month_p3 < 10) {
+          month_p3 = '0' + month_p3;
       }
 
       $("#date_p2").val($("#date_p1").val().substr(0,2) + "/" + month_p2 + "/" + year);
