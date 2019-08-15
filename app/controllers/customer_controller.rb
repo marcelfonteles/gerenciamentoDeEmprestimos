@@ -1,7 +1,7 @@
 class CustomerController < ApplicationController
   before_action :authenticate_user!
   def index
-  	@customer = Customer.all
+  	@customer = Customer.all.order(:name)
     @newCustomer = Customer.new
     @p1 = Date.today + 70
     @p2 = Date.today + 100
@@ -84,6 +84,7 @@ class CustomerController < ApplicationController
     end
     redirect_to filtered_customer_loan_path(params[:customer_id], params[:date])
   end
+
 
 
 
