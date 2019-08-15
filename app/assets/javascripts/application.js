@@ -16,10 +16,11 @@
 //= require dateRangePicker/moment.min
 //= require dateRangePicker/dateRangePicker
 //= require bootstrap/bootstrap.min
-//= require turbolinks
+//= require angularjs/angular
+
 //= require_tree .
 
-document.addEventListener("turbolinks:load", function() {
+$(function() {
   var date1;
   var date2;
   var date3;

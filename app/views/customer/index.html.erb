@@ -1,4 +1,4 @@
-   <div class="content-wrapper">
+   <div class="content-wrapper" ng-controller="masterCtrl">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
@@ -10,41 +10,38 @@
     <section class="content">
       <div class="row">
         <div class='col-md-8'>
-          <button class='btn btn-primary' id='new-loan' style="margin-bottom: 5px">Novo Cliente</button>
+          <button class='btn btn-primary' id='newCustomer' style="margin-bottom: 5px">Novo Cliente</button>
           <button class='btn btn-danger d-none' id='cancel-loan' style="margin-bottom: 5px">Cancelar</button>
         </div>
-        
-      </div>
-      <div class="box box-primary d-none" id="new-loan-form">
-        <div class="box-header with-border">
-          <h3 class="box-title">Novo Cliente</h3>
-        </div>
-        <!-- /.box-header -->
-        <div class="box-body">
-          <%= form_with  model: @newCustomer, url: '/customer/createcustomer' do |f| %>
-            <!-- text input -->
-            <div class="form-group">
-              <label>Nome</label>
-              <%= f.text_field :name, class:'form-control clear-field'%>
+        <div class="col-md-12">
+          <div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">Novo Cliente</h3>
             </div>
-            <div class="form-group">
-              <label>CPF</label>
-              <%= f.text_field :cpf, class:'form-control clear-field'%>
-            </div>
-            <div class="form-group">
-              <label>Endereço</label>
-              <%= f.text_field :address, class:'form-control clear-field'%>
-            </div>
-            <div class="form-group">
-              <label>Telefone</label>
-              <%= f.text_field :phone, class:'form-control clear-field'%>
+            <div class="box-body">
+              <p>Nome</p>
+              <input class="form-control" ng-model="customer.name">
+              <p>CPF</p>
+              <input class="form-control" ng-model="customer.cpf">
+              <p>Endereço</p>
+              <input class="form-control" ng-model="customer.address">
+              <p>Telefone</p>
+              <input class="form-control" ng-model="customer.phone">
             </div>
             <div class="box-footer">
-              <%= f.submit "Cadastrar", class:'btn btn-primary', id:'new-loan-submit', id:'new-customer-submit'%>
+              <button class="btn btn-primary" ng-click="addCustomer(customer)">Cadastrar</button>
             </div>
-            
-          <% end %>
+          </div>
         </div>
+      </div>
+
+      <div class="form-group">
+        <input class="form-control" placeholder="Digite o nome do cliente..." ng-model="buscador.name">
+      </div>
+      <div>
+        <ul ng-repeat="customer in customers">
+          <li>{{customer}}</li>
+        </ul>
       </div>
       <!-- Main row -->
       <div class="row">
@@ -62,38 +59,45 @@
                   <th>Valor a receber</th>
                   <th>Informações</th>
                 </tr>
-                <% @count = 1%>
-                <% @customer.each do |customer| %>
-                  <% if customer.loans.any? %>
-    	               <tr style="font-weight: normal">
-    	              	<td><%= @count %></td>
-                      <td><%= customer.name%></td>
-                      <% @p1 = customer.loans.select{ |loan| !loan.paid_p1 }.sum{|loan| loan.portion1 }%>
-                      <% @p2 = customer.loans.select{ |loan| !loan.paid_p2 }.sum{|loan| loan.portion2 }%>
-                      <% @p3 = customer.loans.select{ |loan| !loan.paid_p3 }.sum{|loan| loan.portion3 }%>
-                      <td>R$ <%= (@p1 + @p2 + @p3).round(2) %></td>
-                      <td><%= link_to "Ver Emprestimos", show_customer_path(customer.id), class:'btn btn-primary btn-sm' %>
-                        <%= link_to "Editar Cliente", edit_customer_path(customer.id), class:'btn btn-secondary btn-sm' %>
-                        <%= link_to "Apagar Cliente", destroy_customer_path(customer.id), method: :delete, data: {confirm: "Tem certeza que deseja apagar o cliente #{customer.name}? Todos os emprestimos relacionados a esse cliente também serão apagados!" }, class:'btn btn-danger btn-sm'%>
-                      </td>
-                      <% @count += 1 %>
-                      </tr>
-                  <% else %>
-                    <tr style="font-weight: normal"> 
-                      <td><%= @count%></td>
-                      <td><%= customer.name%></td>
-                      <td> R$ 0 </td>
-                      <td><%= link_to "Ver Emprestimos", show_customer_path(customer.id), class:'btn btn-primary btn-sm' %>
-                        <%= link_to "Editar Cliente", edit_customer_path(customer.id), class:'btn btn-secondary btn-sm' %>
-                        <%= link_to "Apagar Cliente", destroy_customer_path(customer.id), method: :delete, data: {confirm: "Tem certeza que deseja apagar o cliente #{customer.name}" }, class:'btn btn-danger btn-sm'%>
-                      </td>
-                      <% @count += 1 %>
-                    </tr>
-                  <% end %>
-	                	
-	                
-                <% end %>
-                	
+                <tr ng-repeat="customer in customers | filter: buscador" style="font-weight: normal;">
+                  <td>{{$index+1}}</td>
+                  <td>{{customer.name}}</td>
+                  <td>R${{customer.vlrReceber}}</td>
+                  <td>
+                    <a href="/customer/{{customer.id}}" class="btn btn-primary btn-sm">Ver Emprestimos</a>
+                    <a href="" class="btn btn-secondary btn-sm">Editar Cliente</a>
+                    <a href="" class="btn btn-danger btn-sm">Apagar Cliente</a>
+                  </td>
+                </tr>
+                <%# @count = 1%>
+                <%# @customer.each do |customer| %>
+                  <%# if customer.loans.any? %>
+<!--    	               <tr style="font-weight: normal">-->
+<!--    	              	<td><%#= @count %></td>-->
+<!--                      <td><%#= customer.name%></td>-->
+                      <%# @p1 = customer.loans.select{ |loan| !loan.paid_p1 }.sum{|loan| loan.portion1 }%>
+                      <%# @p2 = customer.loans.select{ |loan| !loan.paid_p2 }.sum{|loan| loan.portion2 }%>
+                      <%# @p3 = customer.loans.select{ |loan| !loan.paid_p3 }.sum{|loan| loan.portion3 }%>
+<!--                      <td>R$ <%#= (@p1 + @p2 + @p3).round(2) %></td>-->
+<!--                      <td><%#= link_to "Ver Emprestimos", show_customer_path(customer.id), class:'btn btn-primary btn-sm' %>-->
+                        <%#= link_to "Editar Cliente", edit_customer_path(customer.id), class:'btn btn-secondary btn-sm' %>
+                        <%#= link_to "Apagar Cliente", destroy_customer_path(customer.id), method: :delete, data: {confirm: "Tem certeza que deseja apagar o cliente #{customer.name}? Todos os emprestimos relacionados a esse cliente também serão apagados!" }, class:'btn btn-danger btn-sm'%>
+<!--                      </td>-->
+                      <%# @count += 1 %>
+<!--                      </tr>-->
+                  <%# else %>
+<!--                    <tr style="font-weight: normal">-->
+<!--                      <td><%#= @count%></td>-->
+<!--                      <td><%#= customer.name%></td>-->
+<!--                      <td> R$ 0 </td>-->
+<!--                      <td><%#= link_to "Ver Emprestimos", show_customer_path(customer.id), class:'btn btn-primary btn-sm' %>-->
+                        <%#= link_to "Editar Cliente", edit_customer_path(customer.id), class:'btn btn-secondary btn-sm' %>
+                        <%#= link_to "Apagar Cliente", destroy_customer_path(customer.id), method: :delete, data: {confirm: "Tem certeza que deseja apagar o cliente #{customer.name}" }, class:'btn btn-danger btn-sm'%>
+<!--                      </td>-->
+                      <%# @count += 1 %>
+<!--                    </tr>-->
+                  <%# end %>
+                <%# end %>
                 </tr>
               </table>
             </div>

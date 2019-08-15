@@ -85,6 +85,22 @@ class CustomerController < ApplicationController
     redirect_to filtered_customer_loan_path(params[:customer_id], params[:date])
   end
 
+  # AngularJS
+  def json_customers
+    @customers = Customer.all.order(:name)
+    render json:{status: 200, data: @customers}
+  end
+
+  def api_create_customer
+    @customer = Customer.new
+    @customer.name = params[:name]
+    @customer.cpf = params[:cpf]
+    @customer.address = params[:address]
+    @customer.phone = params[:phone]
+    if @customer.save
+      render json: {status: 200, data: @customer.id}
+    end
+  end
 
 
 

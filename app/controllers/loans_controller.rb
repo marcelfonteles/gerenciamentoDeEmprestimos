@@ -90,6 +90,11 @@ class LoansController < ApplicationController
       redirect_to show_customer_path(@customer_id)
     end
   end
+
+  def json_loans
+    @loans = Loan.all
+    render json: {status: 200, data: @loans}
+  end
   
   private
   
