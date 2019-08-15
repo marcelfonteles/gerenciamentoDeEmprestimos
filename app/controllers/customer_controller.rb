@@ -102,6 +102,15 @@ class CustomerController < ApplicationController
     end
   end
 
+  def api_update_customer
+    @customer = Customer.find(params[:id])
+    @customer.name = params[:name]
+    @customer.cpf = params[:cpf]
+    @customer.address = params[:address]
+    @customer.phone = params[:phone]
+    @customer.save
+  end
+
 
 
   private

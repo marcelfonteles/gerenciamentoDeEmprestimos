@@ -40,6 +40,7 @@ Rails.application.routes.draw do
     get 'angular/json', to: 'customer#json_customers'
     # AngularJS
     post 'api/createcustomer', to: 'customer#api_create_customer'
+    patch 'api/updatecustomer', to: 'customer#api_update_customer'
   end
   
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

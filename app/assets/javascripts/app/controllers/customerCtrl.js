@@ -54,6 +54,13 @@ app.controller("customerCtrl", ["$scope", "$http", "$log", function ($scope, $ht
             delete $scope.customer;
             $scope.showForm = false;
         });
-        
+    }
+
+    // Edit Form
+    $scope.editCustomer = function (customer) {
+        $scope.customerEdit = customer;
+    }
+    $scope.editSaveCustomer = function (customerEdit) {
+        $http.patch('/customer/api/updatecustomer', customerEdit);
     }
 }]);
