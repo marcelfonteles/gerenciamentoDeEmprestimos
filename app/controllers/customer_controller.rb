@@ -116,6 +116,11 @@ class CustomerController < ApplicationController
     render json: {status: 200, data: @customer}
   end
 
+  def api_filter
+    @filter = filter(params[:id])
+    render json: { status: 200, data: @filter}
+  end
+
 
 
   private

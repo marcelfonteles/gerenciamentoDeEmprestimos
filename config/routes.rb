@@ -26,6 +26,7 @@ Rails.application.routes.draw do
     get 'api/getcustomerloans/:id', to: 'loans#api_get_customer_loans'
     get 'api/getdates', to: 'loans#api_get_dates'
     post 'api/newloan', to: 'loans#api_new_loan'
+    patch 'api/editloan', to: 'loans#api_edit_loan'
 
   end
 
@@ -45,6 +46,7 @@ Rails.application.routes.draw do
     post 'api/createcustomer', to: 'customer#api_create_customer'
     patch 'api/updatecustomer', to: 'customer#api_update_customer'
     get 'api/getcustomer/:id', to: 'customer#api_get_customer'
+    get 'api/filter/:id', to: 'customer#api_filter'
   end
   
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

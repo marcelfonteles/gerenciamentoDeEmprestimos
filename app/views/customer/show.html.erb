@@ -13,15 +13,14 @@
               <button class='btn btn-primary' ng-click="newLoan()" ng-show="!showNewLoanForm">Novo Emprestimo</button>
               <button class='btn btn-danger d-none' id='cancel-loan' >Cancelar</button>
             </div>
-            <div class='col-md-4'>
-              <%= form_with url: '/customer/filtro', remote: false do |f| %>
-                <%= f.select :date, @filter, class:'form-control'%>
-                <div class='d-none'><%= f.text_field :customer_id, value: @customer.id %></div>
-                <%= f.submit 'Filtrar', class:'btn btn-primary btn-sm'%>
-              <% end %>
-            </div>            
+            <div class='col-md-6'>
+              <div class="form-inline">
+                <select ng-options="opt for opt in filterOptions" ng-model="filter" class="form-control inline"></select>
+                <a class="btn btn-primary" href="/customer/resultado/{{customerId}}/{{filter.substring(0,2)}}%2F{{filter.substring(3,7)}}">Filtrar</a>
+              </div>
+            </div>
           </div>
-
+          <!-- New Loan Form -->
           <div class="box box-primary" ng-show="showNewLoanForm">
             <div class="box-header with-border">
               <h3 class="box-title">Novo Emprestimo</h3>
@@ -32,7 +31,7 @@
                 <input type="text" class="form-control" ng-model="newLoanObj.store">
 
                 <label>Valor</label>
-                <input type="text" class="form-control" ng-model="newLoanObj.amount">
+                <input type="text" class="form-control" ng-model="newLoanObj.amount" ng-blur="calculoDeParcelas(newLoanObj, 1)">
                 <div class="row">
                   <div class="col-md-3">
                     <label>Parcela 1</label>
@@ -68,6 +67,56 @@
             <div class="box-footer">
               <button class="btn btn-primary" ng-click="submitNewLoan(newLoanObj)">Cadastrar</button>
               <button class="btn btn-danger" ng-click="cancelNewLoan()">Cancelar</button>
+            </div>
+          </div>
+          <!-- End of New Loan Form -->
+          <!-- Edit Loan Form -->
+          <div class="box box-primary" ng-show="showEditLoanForm">
+            <div class="box-header with-border">
+              <h3 class="box-title">Novo Emprestimo</h3>
+            </div>
+            <div class="box-body">
+              <div class="form-group">
+                <label>Loja</label>
+                <input type="text" class="form-control" ng-model="editLoanObj.store">
+
+                <label>Valor</label>
+                <input type="text" class="form-control" ng-model="editLoanObj.amount" ng-blur="calculoDeParcelas(editLoanObj, 2)">
+                <div class="row">
+                  <div class="col-md-3">
+                    <label>Parcela 1</label>
+                    <input type="text" class="form-control" ng-model="editLoanObj.portion1">
+                  </div>
+                  <div class="col-md-3">
+                    <label>Previsão de Pagamento da 1ª Parcela</label>
+                    <input type="date" class="form-control" ng-model="editLoanObj.date_p1">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-3">
+                    <label>Parcela 2</label>
+                    <input type="text" class="form-control" ng-model="editLoanObj.portion2">
+                  </div>
+                  <div class="col-md-3">
+                    <label>Previsão de Pagamento da 2ª Parcela</label>
+                    <input type="date" class="form-control" ng-model="editLoanObj.date_p2">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-3">
+                    <label>Parcela 3</label>
+                    <input type="text" class="form-control" ng-model="editLoanObj.portion3">
+                  </div>
+                  <div class="col-md-3">
+                    <label>Previsão de Pagamento da 3ª Parcela</label>
+                    <input type="date" class="form-control" ng-model="editLoanObj.date_p3">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="box-footer">
+              <button class="btn btn-primary" ng-click="submitEditLoan(editLoanObj)">Cadastrar</button>
+              <button class="btn btn-danger" ng-click="cancelEditLoan()">Cancelar</button>
             </div>
           </div>
         </div>
@@ -145,11 +194,11 @@
             </tr>
             <tr ng-repeat="loan in loans" style="font-weight: normal">
               <td>{{$index+1}}</td>
-              <td>{{loan.store}}</td>
+              <td><a href="/loan/{{loan.id}}">{{loan.store}}</a></td>
               <td>R$ {{loan.amount}}</td>
-              <td ng-class="redOrGreen(loan.paid_p1)">R$ {{loan.portion1}} ({{loan.date_p1 | date: 'dd/MM/yyyy'}})</td>
-              <td ng-class="redOrGreen(loan.paid_p2)">R$ {{loan.portion2}} ({{loan.date_p2 | date: 'dd/MM/yyyy'}})</td>
-              <td ng-class="redOrGreen(loan.paid_p3)">R$ {{loan.portion3}} ({{loan.date_p3 | date: 'dd/MM/yyyy'}})</td>
+              <td ng-class="redOrGreen(loan.paid_p1)">R$ {{loan.portion1 | number: 2}} ({{loan.date_p1 | date: 'dd/MM/yyyy'}})</td>
+              <td ng-class="redOrGreen(loan.paid_p2)">R$ {{loan.portion2 | number: 2}} ({{loan.date_p2 | date: 'dd/MM/yyyy'}})</td>
+              <td ng-class="redOrGreen(loan.paid_p3)">R$ {{loan.portion3 | number: 2}} ({{loan.date_p3 | date: 'dd/MM/yyyy'}})</td>
               <td>
                 <button type="button" class="btn btn-secondary btn" data-toggle="modal" data-target="#ExemploModalCentralizadoEmprestimo" ng-click="editLoan(loan)")>Editar</button>
                 <a href="/loan/{{loan.id}}/delete" data-method="delete" data-confirm="Tem certeza que deseja apagar este emprestimo?" class="btn btn-danger">Apagar</a>

@@ -127,6 +127,24 @@ class LoansController < ApplicationController
     @loan.save
     render json: {status: 200, loanId: @loan.id}
   end
+
+  def api_edit_loan
+    @loan = Loan.find(params[:id])
+    @loan.store = params[:store]
+    @loan.amount = params[:amount]
+    @loan.portion1 = params[:portion1]
+    @loan.portion2 = params[:portion2]
+    @loan.portion3 = params[:portion3]
+    @loan.date_p1 = params[:date_p1]
+    @loan.date_p2 = params[:date_p2]
+    @loan.date_p3 = params[:date_p3]
+    @loan.paid_p1 = false
+    @loan.paid_p2 = false
+    @loan.paid_p3 = false
+    @loan.customer_id = params[:customer_id]
+    @loan.save
+    render json: {status: 200}
+  end
   
   private
   
