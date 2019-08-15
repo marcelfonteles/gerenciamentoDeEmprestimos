@@ -1,4 +1,4 @@
-<div class="content-wrapper">
+<div class="content-wrapper" ng-controller="customerShowCtrl">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
@@ -84,6 +84,69 @@
           </div>
         </div>
         <hr>
+          <!-- Modal Editar Cliente-->
+          <div class="modal fade" id="ExemploModalCentralizadoCliente" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="TituloModalCentralizado">Editar Cliente</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Fechar" ng-click="cancelEditCustomer()">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <p>Nome</p>
+                  <input type="text" class="form-control" ng-model="customer.name">
+                  <p>CPF</p>
+                  <input class="form-control" ng-model="customer.cpf">
+                  <p>Endereço</p>
+                  <input class="form-control" ng-model="customer.address">
+                  <p>Telefone</p>
+                  <input class="form-control" ng-model="customer.phone">
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal" ng-click="cancelEditCustomer()">Fechar</button>
+                  <button type="button" class="btn btn-primary" ng-click="editSaveCustomer(customer)" data-dismiss="modal">Salvar mudanças</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Modal Editar Emprestimo-->
+          <div class="modal fade" id="ExemploModalCentralizadoEmprestimo" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="TituloModalCentralizado">Editar Emprestimo</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Fechar" ng-click="cancelEditCustomer()">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <p>Loja</p>
+                  <input type="text" class="form-control" ng-model="loanEdit.store">
+                  <p>Valor</p>
+                  <input type="text" class="form-control" ng-model="loanEdit.amount">
+                  <p>Parcela 1</p>
+                  <input type="text" class="form-control" ng-model="loanEdit.portion1">
+                  <p>Parcela 2</p>
+                  <input type="text" class="form-control" ng-model="loanEdit.portion2">
+                  <p>Parcela 3</p>
+                  <input type="text" class="form-control" ng-model="loanEdit.portion3">
+                  <p>Pagamento da 1ª Parcela</p>
+                  <input type="text" class="form-control" ng-model="loanEdit.date_p1">
+                  <p>Pagamento da 2ª Parcela</p>
+                  <input type="text" class="form-control" ng-model="loanEdit.date_p2">
+                  <p>Pagamento da 3ª Parcela</p>
+                  <input type="text" class="form-control" ng-model="loanEdit.date_p3">
+
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal" ng-click="cancelEditCustomer()">Fechar</button>
+                  <button type="button" class="btn btn-primary" ng-click="editSaveCustomer(customer)" data-dismiss="modal">Salvar mudanças</button>
+                </div>
+              </div>
+            </div>
+          </div>
         <div class="box">
             <div class="box-header with-border">
               <h3 class="box-title">Cliente</h3>
@@ -100,13 +163,13 @@
                 </tr>
                 <tr style="font-weight: normal">
                   <td>1</td>
-                  <td><%= @customer.name %></td>
-                  <td><%= @customer.cpf %></td>
-                  <td><%= @customer.address %></td>
-                  <td><%= @customer.phone %></td>
+                  <td>{{customer.name}}</td>
+                  <td>{{customer.cpf}}</td>
+                  <td>{{customer.address}}</td>
+                  <td>{{customer.phone}}</td>
                   <td>
-                    <%= link_to 'Editar', edit_customer_path(@customer.id), class:'btn btn-secondary'%>
-                    <%= link_to 'Apagar', destroy_customer_path(@customer.id), method: :delete, data: { confirm: "Tem certeza que deseja apagar o #{@customer.name}? Todos os emprestimos relacionados a esse cliente também serão apagados!"}, class: 'btn btn-danger'%>
+                    <button type="button" class="btn btn-secondary btn" data-toggle="modal" data-target="#ExemploModalCentralizadoCliente" ng-click="editCustomer(customer)")>Editar</button>
+                    <a href="/customer/{{customer.id}}/destroy" class="btn btn-danger" data-method="delete" data-confirm="Tem certeza que deseja apagar: {{customer.name}}? Todos os emprestimos relacionados a este cliente serão automaticamente deletados.">Apagar</a>
                   </td>
                 </tr>
               </table>
@@ -127,36 +190,48 @@
                   <th>3ª Parcela</th>
                   <th>Apagar</th>
                 </tr>
-                <% @count = 1 %>
-                <% @customer.loans.each do |loan|%>
-                <tr style="font-weight: normal">
-                  <td><%= @count %></td>
-                  <td><%= link_to loan.store, loan_path(loan.id) %></td>
-                  <td><%= loan.amount %></td>
-                  <% if loan.paid_p1 %>
-                    <td><span class='text-success'><%= loan.portion1 %> (<%= loan.date_p1.strftime('%d/%m/%Y')%>)</span></td>
-                  <% else %>
-                    <td><span class='text-danger'><%= loan.portion1 %> (<%= loan.date_p1.strftime('%d/%m/%Y')%>)</span></td>
-                  <% end %>
-                  <% if loan.paid_p2 %>
-                    <td><span class='text-success'><%= loan.portion2 %> (<%= loan.date_p2.strftime('%d/%m/%Y')%>)</span></td>
-                  <% else %>
-                    <td><span class='text-danger'><%= loan.portion2 %> (<%= loan.date_p2.strftime('%d/%m/%Y')%>)</span></td>
-                  <% end %>
-                  <% if loan.paid_p3 %>
-                    <td><span class='text-success'><%= loan.portion3 %> (<%= loan.date_p3.strftime('%d/%m/%Y')%>)</span></td>
-                  <% else %>
-                    <td><span class='text-danger'><%= loan.portion3 %> (<%= loan.date_p3.strftime('%d/%m/%Y')%>)</span></td>
-                  <% end %>
-                  <td>
-                    <%= link_to 'Editar', edit_loan_path(loan.id), class:'btn btn-primary btn-sm'%>
-                    <%= link_to "Apagar", destroy_loan_path(loan.id), method: :delete, data: {confirm: "Tem certeza que deseja apagar este emprestimo?"}, class:'btn btn-danger btn-sm'%>
-                  </td>
+                 <tr ng-repeat="loan in loans" style="font-weight: normal">
+                   <td>{{$index+1}}</td>
+                   <td>{{loan.store}}</td>
+                   <td>{{loan.amount}}</td>
+                   <td ng-class="redOrGreen(loan.date_p1)">R$ {{loan.portion1}} ({{loan.date_p1 | date: 'dd/MM/yyyy'}})</td>
+                   <td ng-class="redOrGreen(loan.date_p2)">R$ {{loan.portion2}} ({{loan.date_p2 | date: 'dd/MM/yyyy'}})</td>
+                   <td ng-class="redOrGreen(loan.date_p3)">R$ {{loan.portion3}} ({{loan.date_p3 | date: 'dd/MM/yyyy'}})</td>
+                   <td>
+                     <button type="button" class="btn btn-secondary btn" data-toggle="modal" data-target="#ExemploModalCentralizadoEmprestimo" ng-click="editCustomer(customer)")>Editar</button>
+                     <a href="/loan/{{loan.id}}/delete" data-method="delete" data-confirm="Tem certeza que deseja apagar este emprestimo?" class="btn btn-danger">Apagar</a>
+                   </td>
+                 </tr>
+                <%# @count = 1 %>
+                <%# @customer.loans.each do |loan|%>
+<!--                <tr style="font-weight: normal">-->
+<!--                  <td><%#= @count %></td>-->
+<!--                  <td><%#= link_to loan.store, loan_path(loan.id) %></td>-->
+<!--                  <td><%#= loan.amount %></td>-->
+                  <%# if loan.paid_p1 %>
+<!--                    <td><span class='text-success'><%#= loan.portion1 %> (<%#= loan.date_p1.strftime('%d/%m/%Y')%>)</span></td>-->
+                  <%# else %>
+<!--                    <td><span class='text-danger'><%#= loan.portion1 %> (<%#= loan.date_p1.strftime('%d/%m/%Y')%>)</span></td>-->
+                  <%# end %>
+                  <%# if loan.paid_p2 %>
+<!--                    <td><span class='text-success'><%#= loan.portion2 %> (<%#= loan.date_p2.strftime('%d/%m/%Y')%>)</span></td>-->
+                  <%# else %>
+<!--                    <td><span class='text-danger'><%#= loan.portion2 %> (<%#= loan.date_p2.strftime('%d/%m/%Y')%>)</span></td>-->
+                  <%# end %>
+                  <%# if loan.paid_p3 %>
+<!--                    <td><span class='text-success'><%#= loan.portion3 %> (<%#= loan.date_p3.strftime('%d/%m/%Y')%>)</span></td>-->
+                  <%# else %>
+<!--                    <td><span class='text-danger'><%#= loan.portion3 %> (<%#= loan.date_p3.strftime('%d/%m/%Y')%>)</span></td>-->
+                  <%# end %>
+<!--                  <td>-->
+                    <%#= link_to 'Editar', edit_loan_path(loan.id), class:'btn btn-primary btn-sm'%>
+                    <%#= link_to "Apagar", destroy_loan_path(loan.id), method: :delete, data: {confirm: "Tem certeza que deseja apagar este emprestimo?"}, class:'btn btn-danger btn-sm'%>
+<!--                  </td>-->
 
 
-                  <% @count += 1%>
-                </tr>
-                <% end %>
+                  <%# @count += 1%>
+<!--                </tr>-->
+                <%# end %>
               </table>
               <%= link_to 'Voltar', root_path, class:'btn btn-primary btn-sm'%>
             </div>

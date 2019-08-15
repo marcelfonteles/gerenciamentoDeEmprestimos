@@ -91,8 +91,14 @@ class LoansController < ApplicationController
     end
   end
 
+  # AngularJS
   def json_loans
     @loans = Loan.all
+    render json: {status: 200, data: @loans}
+  end
+
+  def api_get_customer_loans
+    @loans = Loan.all.where(customer_id: params[:id])
     render json: {status: 200, data: @loans}
   end
   

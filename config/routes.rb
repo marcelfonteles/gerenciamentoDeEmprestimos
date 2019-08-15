@@ -23,6 +23,7 @@ Rails.application.routes.draw do
     delete ':id/delete', to: 'loans#destroy_loan', as: 'destroy_loan'
     get 'angular/json', to: 'loans#json_loans'
     # AngularJS
+    get 'api/getcustomerloans/:id', to: 'loans#api_get_customer_loans'
 
   end
 
@@ -41,6 +42,7 @@ Rails.application.routes.draw do
     # AngularJS
     post 'api/createcustomer', to: 'customer#api_create_customer'
     patch 'api/updatecustomer', to: 'customer#api_update_customer'
+    get 'api/getcustomer/:id', to: 'customer#api_get_customer'
   end
   
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

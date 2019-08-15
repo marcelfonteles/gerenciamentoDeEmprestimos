@@ -111,6 +111,11 @@ class CustomerController < ApplicationController
     @customer.save
   end
 
+  def api_get_customer
+    @customer = Customer.find(params[:id])
+    render json: {status: 200, data: @customer}
+  end
+
 
 
   private

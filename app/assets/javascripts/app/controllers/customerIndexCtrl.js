@@ -1,7 +1,7 @@
 'use strict';
 var app = angular.module('gerenciamento');
 
-app.controller("customerCtrl", ["$scope", "$http", "$log", function ($scope, $http, $log) {
+app.controller("customerIndexCtrl", ["$scope", "$http", "$log", "$location", function ($scope, $http, $log, $location) {
     $scope.customers = [];
     $scope.loans = [];
     $scope.showForm = false;
