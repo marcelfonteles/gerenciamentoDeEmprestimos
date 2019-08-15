@@ -7,7 +7,7 @@
   <component name="ChangeListManager">
     <list default="true" id="54504764-ac03-4ff3-bd74-d88aaf6da9e5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/assets/javascripts/app/controllers/customerShowCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/assets/javascripts/app/controllers/customerShowCtrl.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/users/sessions/new.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/users/sessions/new.html.erb" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -159,7 +159,8 @@
       <updated>1561557040402</updated>
       <workItem from="1561557043756" duration="740000" />
       <workItem from="1561557812448" duration="4720000" />
-      <workItem from="1565833633217" duration="31868000" />
+      <workItem from="1565833633217" duration="32502000" />
+      <workItem from="1565908396546" duration="712000" />
     </task>
     <servers />
   </component>
@@ -171,13 +172,16 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
     </option>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/gerenciamentoDeEmprestimos@Development__gerenciamentoDeEmprestimos.rcov" NAME="Development: gerenciamentoDeEmprestimos Coverage Results" MODIFIED="1565897078725" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="gerenciamentoDeEmprestimos" />
+    <SUITE FILE_PATH="coverage/gerenciamentoDeEmprestimos@Development__gerenciamentoDeEmprestimos.rcov" NAME="Development: gerenciamentoDeEmprestimos Coverage Results" MODIFIED="1565908558499" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="gerenciamentoDeEmprestimos" />
+    <SUITE FILE_PATH="coverage/gerenciamentoDeEmprestimos@Production__gerenciamentoDeEmprestimos.rcov" NAME="Production: gerenciamentoDeEmprestimos Coverage Results" MODIFIED="1565908522265" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="gerenciamentoDeEmprestimos" />
   </component>
 </project>
