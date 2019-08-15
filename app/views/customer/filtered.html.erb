@@ -44,23 +44,22 @@
                         <td><%= @count%></td>
                         <td><%= loan.store%></td>
                         <% if loan.paid_p1 %>
-                          <td class='text-green'>R$ <%= loan.portion1%> (<%= loan.date_p1.strftime('%d/%m/%y')%>)</td>
+                          <td class='text-green'>R$ <%= loan.portion1.round(2)%> (<%= loan.date_p1.strftime('%d/%m/%y')%>)</td>
                         <% else %>
-                          <td class='text-red'>R$ <%= loan.portion1%> (<%= loan.date_p1.strftime('%d/%m/%y')%>)</td>
+                          <td class='text-red'>R$ <%= loan.portion1.round(2)%> (<%= loan.date_p1.strftime('%d/%m/%y')%>)</td>
                         <% end %>
                         <td>Parcela 1</td>
                         <% @count += 1%>
                       </tr>
                     <% end %>
-                    
                     <% if (loan.date_p2.month == @mes.to_i and loan.date_p2.year == @ano.to_i)%>
                       <tr style='font-weight: normal'>
                         <td><%= @count%></td>
                         <td><%= loan.store%></td>
                          <% if loan.paid_p2 %>
-                          <td class='text-green'>R$ <%= loan.portion2%> (<%= loan.date_p2.strftime('%d/%m/%y')%>)</td>
+                          <td class='text-green'>R$ <%= loan.portion2.round(2)%> (<%= loan.date_p2.strftime('%d/%m/%y')%>)</td>
                         <% else %>
-                          <td class='text-red'>R$ <%= loan.portion2%> (<%= loan.date_p2.strftime('%d/%m/%y')%>)</td>
+                          <td class='text-red'>R$ <%= loan.portion2.round(2)%> (<%= loan.date_p2.strftime('%d/%m/%y')%>)</td>
                         <% end %>
                         <td>Parcela 2</td>
                         <% @count += 1%>
@@ -72,9 +71,9 @@
                         <td><%= @count%></td>
                         <td><%= loan.store%></td>
                          <% if loan.paid_p3 %>
-                          <td class='text-green'>R$ <%= loan.portion3%> (<%= loan.date_p3.strftime('%d/%m/%y')%>)</td>
+                          <td class='text-green'>R$ <%= loan.portion3.round(2)%> (<%= loan.date_p3.strftime('%d/%m/%y')%>)</td>
                         <% else %>
-                          <td class='text-red'>R$ <%= loan.portion3%> (<%= loan.date_p3.strftime('%d/%m/%y')%>)</td>
+                          <td class='text-red'>R$ <%= loan.portion3.round(2)%> (<%= loan.date_p3.strftime('%d/%m/%y')%>)</td>
                         <% end %>
                         <td>Parcela 3</td>
                         <% @count += 1%>
@@ -88,7 +87,7 @@
                   <% @sum_p3 = @loans.select{ |loan| (loan.date_p3.month == @mes.to_i and loan.date_p3.year == @ano.to_i) }.sum{ |loan| loan.portion3 }%>
                   <td>Total:</td>
                   <td></td>
-                  <td>R$ <%= @sum_p1 + @sum_p2 + @sum_p3 %></td>
+                  <td>R$ <%= (@sum_p1 + @sum_p2 + @sum_p3).round(2) %></td>
                   <td></td>
                 </tr>
               </table>

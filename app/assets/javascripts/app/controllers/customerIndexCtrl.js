@@ -54,13 +54,21 @@ app.controller("customerIndexCtrl", ["$scope", "$http", "$log", "$location", fun
             delete $scope.customer;
             $scope.showForm = false;
         });
-    }
+    };
 
     // Edit Form
     $scope.editCustomer = function (customer) {
-        $scope.customerEdit = customer;
-    }
+        $scope.customerEdit = angular.copy(customer);
+    };
     $scope.editSaveCustomer = function (customerEdit) {
         $http.patch('/customer/api/updatecustomer', customerEdit);
+        $scope.customers.forEach(function (customer, customerIndex) {
+            if (customer.id == customerEdit.id) {
+                $scope.customers[customerIndex] = customerEdit;
+            }
+        })
+    };
+    $scope.cancelEditCustomer = function () {
+        delete $scope.customerEdit;
     }
 }]);
