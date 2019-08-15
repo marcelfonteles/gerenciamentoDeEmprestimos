@@ -7,9 +7,7 @@
   <component name="ChangeListManager">
     <list default="true" id="54504764-ac03-4ff3-bd74-d88aaf6da9e5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/assets/javascripts/app/controllers/customerIndexCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/assets/javascripts/app/controllers/customerIndexCtrl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/views/customer/filtered.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/customer/filtered.html.erb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/views/customer/index.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/customer/index.html.erb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/assets/javascripts/app/controllers/customerShowCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/assets/javascripts/app/controllers/customerShowCtrl.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -161,7 +159,7 @@
       <updated>1561557040402</updated>
       <workItem from="1561557043756" duration="740000" />
       <workItem from="1561557812448" duration="4720000" />
-      <workItem from="1565833633217" duration="31335000" />
+      <workItem from="1565833633217" duration="31868000" />
     </task>
     <servers />
   </component>

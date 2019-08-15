@@ -81,25 +81,30 @@ app.controller("customerShowCtrl", ["$scope", "$location", "$log", "$http", func
         $http.post('/loan/api/newloan', newLoanObj).then(function (response) {
             newLoanObj.id = response.data.loanId;
             $scope.loans.push(newLoanObj);
+            $scope.getFilter();
         });
         $scope.getDates();
         $scope.showNewLoanForm = false;
+
     };
     $scope.calculoDeParcelas = function (loanObj, opt) {
         if (opt == 1) {
-            $scope.newLoanObj.portion1 = loanObj.amount / 3;
-            $scope.newLoanObj.portion2 = loanObj.amount / 3;
-            $scope.newLoanObj.portion3 = loanObj.amount / 3;
+            $scope.newLoanObj.portion1 = (loanObj.amount / 3).toFixed(2);
+            $scope.newLoanObj.portion2 = (loanObj.amount / 3).toFixed(2);
+            $scope.newLoanObj.portion3 = (loanObj.amount / 3).toFixed(2);
         } else {
-            $scope.editLoanObj.portion1 = loanObj.amount / 3;
-            $scope.editLoanObj.portion2 = loanObj.amount / 3;
-            $scope.editLoanObj.portion3 = loanObj.amount / 3;
+            $scope.editLoanObj.portion1 = (loanObj.amount / 3).toFixed(2);
+            $scope.editLoanObj.portion2 = (loanObj.amount / 3).toFixed(2);
+            $scope.editLoanObj.portion3 = (loanObj.amount / 3).toFixed(2);
         }
     };
     // Filter
-    $http.get('/customer/api/filter/' + $scope.customerId).then(function (response) {
-        $log.log(response.data.data);
-        $scope.filterOptions = response.data.data;
-        $scope.filter = $scope.filterOptions[0];
-    })
+    $scope.getFilter = function() {
+        $http.get('/customer/api/filter/' + $scope.customerId).then(function (response) {
+            $scope.filterOptions = response.data.data;
+            $scope.filter = $scope.filterOptions[0];
+        });
+    };
+    $scope.getFilter();
+
 }]);
