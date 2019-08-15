@@ -1,4 +1,4 @@
-   <div class="content-wrapper" ng-controller="masterCtrl">
+   <div class="content-wrapper" ng-controller="customerCtrl">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
@@ -10,11 +10,10 @@
     <section class="content">
       <div class="row">
         <div class='col-md-8'>
-          <button class='btn btn-primary' id='newCustomer' style="margin-bottom: 5px">Novo Cliente</button>
-          <button class='btn btn-danger d-none' id='cancel-loan' style="margin-bottom: 5px">Cancelar</button>
+          <button class='btn btn-primary' id='newCustomer' style="margin-bottom: 5px" ng-click="showFormFunction()" ng-show="!showForm">Novo Cliente</button>
         </div>
         <div class="col-md-12">
-          <div class="box box-primary">
+          <div class="box box-primary" ng-show="showForm">
             <div class="box-header with-border">
               <h3 class="box-title">Novo Cliente</h3>
             </div>
@@ -30,19 +29,16 @@
             </div>
             <div class="box-footer">
               <button class="btn btn-primary" ng-click="addCustomer(customer)">Cadastrar</button>
+              <button class='btn btn-danger' ng-click="cancelAddCustomer()">Cancelar</button>
             </div>
           </div>
         </div>
       </div>
-
+      <hr>
       <div class="form-group">
         <input class="form-control" placeholder="Digite o nome do cliente..." ng-model="buscador.name">
       </div>
-      <div>
-        <ul ng-repeat="customer in customers">
-          <li>{{customer}}</li>
-        </ul>
-      </div>
+      <hr>
       <!-- Main row -->
       <div class="row">
         <div class='col-md-12'>
@@ -65,39 +61,9 @@
                   <td>R${{customer.vlrReceber}}</td>
                   <td>
                     <a href="/customer/{{customer.id}}" class="btn btn-primary btn-sm">Ver Emprestimos</a>
-                    <a href="" class="btn btn-secondary btn-sm">Editar Cliente</a>
-                    <a href="" class="btn btn-danger btn-sm">Apagar Cliente</a>
+                    <a href="/customer/{{customer.id}}/edit" class="btn btn-secondary btn-sm">Editar Cliente</a>
+                    <a href="/customer/{{customer.id}}/destroy" data-method="delete" data-confirm="Tem certeza que deseja apagar o cliente: {{customer.name}}" class="btn btn-danger btn-sm">Apagar Cliente</a>
                   </td>
-                </tr>
-                <%# @count = 1%>
-                <%# @customer.each do |customer| %>
-                  <%# if customer.loans.any? %>
-<!--    	               <tr style="font-weight: normal">-->
-<!--    	              	<td><%#= @count %></td>-->
-<!--                      <td><%#= customer.name%></td>-->
-                      <%# @p1 = customer.loans.select{ |loan| !loan.paid_p1 }.sum{|loan| loan.portion1 }%>
-                      <%# @p2 = customer.loans.select{ |loan| !loan.paid_p2 }.sum{|loan| loan.portion2 }%>
-                      <%# @p3 = customer.loans.select{ |loan| !loan.paid_p3 }.sum{|loan| loan.portion3 }%>
-<!--                      <td>R$ <%#= (@p1 + @p2 + @p3).round(2) %></td>-->
-<!--                      <td><%#= link_to "Ver Emprestimos", show_customer_path(customer.id), class:'btn btn-primary btn-sm' %>-->
-                        <%#= link_to "Editar Cliente", edit_customer_path(customer.id), class:'btn btn-secondary btn-sm' %>
-                        <%#= link_to "Apagar Cliente", destroy_customer_path(customer.id), method: :delete, data: {confirm: "Tem certeza que deseja apagar o cliente #{customer.name}? Todos os emprestimos relacionados a esse cliente também serão apagados!" }, class:'btn btn-danger btn-sm'%>
-<!--                      </td>-->
-                      <%# @count += 1 %>
-<!--                      </tr>-->
-                  <%# else %>
-<!--                    <tr style="font-weight: normal">-->
-<!--                      <td><%#= @count%></td>-->
-<!--                      <td><%#= customer.name%></td>-->
-<!--                      <td> R$ 0 </td>-->
-<!--                      <td><%#= link_to "Ver Emprestimos", show_customer_path(customer.id), class:'btn btn-primary btn-sm' %>-->
-                        <%#= link_to "Editar Cliente", edit_customer_path(customer.id), class:'btn btn-secondary btn-sm' %>
-                        <%#= link_to "Apagar Cliente", destroy_customer_path(customer.id), method: :delete, data: {confirm: "Tem certeza que deseja apagar o cliente #{customer.name}" }, class:'btn btn-danger btn-sm'%>
-<!--                      </td>-->
-                      <%# @count += 1 %>
-<!--                    </tr>-->
-                  <%# end %>
-                <%# end %>
                 </tr>
               </table>
             </div>

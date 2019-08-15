@@ -1,9 +1,10 @@
 'use strict';
 var app = angular.module('gerenciamento');
 
-app.controller("masterCtrl", ["$scope", "$http", "$log", function ($scope, $http, $log) {
+app.controller("customerCtrl", ["$scope", "$http", "$log", function ($scope, $http, $log) {
     $scope.customers = [];
     $scope.loans = [];
+    $scope.showForm = false;
     var primeiro = true;
     // Loading customers and loans
     $http.get("/customer/angular/json").then(function (response) {
@@ -36,13 +37,22 @@ app.controller("masterCtrl", ["$scope", "$http", "$log", function ($scope, $http
             })
         })
     });
+    // Behavior of Form
+    $scope.showFormFunction = function() {
+        $scope.showForm = true;
+    }
+    $scope.cancelAddCustomer = function() {
+        $scope.showForm = false;
+        delete $scope.customer;
+    }
     // Creating New Customer
     $scope.addCustomer = function (customer) {
         $http.post("/customer/api/createcustomer", customer).then(function (response) {
             customer.vlrReceber = 0;
             customer.id = response.data.data;
-            $scope.customers.push(angular.copy(customer));
+            $scope.customers.unshift(angular.copy(customer));
             delete $scope.customer;
+            $scope.showForm = false;
         });
         
     }
