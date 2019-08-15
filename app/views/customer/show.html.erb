@@ -10,9 +10,8 @@
         <div class='col-md-12'>
           <div class='row'>
             <div class='col-md-6'>
-              <button class='btn btn-primary' id='new-loan'>Novo Emprestimo</button>
+              <button class='btn btn-primary' ng-click="newLoan()" ng-show="!showNewLoanForm">Novo Emprestimo</button>
               <button class='btn btn-danger d-none' id='cancel-loan' >Cancelar</button>
-
             </div>
             <div class='col-md-4'>
               <%= form_with url: '/customer/filtro', remote: false do |f| %>
@@ -22,220 +21,144 @@
               <% end %>
             </div>            
           </div>
-          <div class="box box-primary d-none" id="new-loan-form">
+
+          <div class="box box-primary" ng-show="showNewLoanForm">
             <div class="box-header with-border">
-              <h3 class="box-title">Novo Cliente</h3>
+              <h3 class="box-title">Novo Emprestimo</h3>
             </div>
-            <!-- /.box-header -->
             <div class="box-body">
-            <%= form_with  model: @newLoan, url: '/loan/createloan' do |f| %>
-              <!-- text input -->
-              <div class='d-none'>
-                <%= f.text_field :customer_id, class:'form-control clear-field', value: @customer.id%>
-              </div>
               <div class="form-group">
                 <label>Loja</label>
-                <%= f.text_field :store, class:'form-control clear-field'%>
-              </div>
-              <div class="form-group">
+                <input type="text" class="form-control" ng-model="newLoanObj.store">
+
                 <label>Valor</label>
-                <%= f.text_field :amount, class:'form-control clear-field'%>
-              </div>
-              <div class="form-group">
-                <div class='row'>
-                  <div class='col-md-3'>
+                <input type="text" class="form-control" ng-model="newLoanObj.amount">
+                <div class="row">
+                  <div class="col-md-3">
                     <label>Parcela 1</label>
-                    <%= f.text_field :portion1, class:'form-control clear-field'%>
+                    <input type="text" class="form-control" ng-model="newLoanObj.portion1">
                   </div>
-                  <div class='col-md-3'>
-                    <label>Pagamento da 1ª parcela</label>
-                    <%= f.text_field :date_p1, class:'form-control', value: @p1.strftime('%d/%m/%Y'), id:'date_p1'%>
+                  <div class="col-md-3">
+                    <label>Previsão de Pagamento da 1ª Parcela</label>
+                    <input type="date" class="form-control" ng-model="newLoanObj.date_p1">
                   </div>
                 </div>
-              </div>
-              <div class="form-group">
-                <div class='row'>
-                  <div class='col-md-3'>
+                <div class="row">
+                  <div class="col-md-3">
                     <label>Parcela 2</label>
-                    <%= f.text_field :portion2, class:'form-control clear-field'%>
+                    <input type="text" class="form-control" ng-model="newLoanObj.portion2">
                   </div>
-                  <div class='col-md-3'>
-                    <label>Pagamento da 2ª parcela</label>
-                    <%= f.text_field :date_p2, class:'form-control', value: @p2.strftime('%d/%m/%Y'), id:'date_p2'%>
+                  <div class="col-md-3">
+                    <label>Previsão de Pagamento da 2ª Parcela</label>
+                    <input type="date" class="form-control" ng-model="newLoanObj.date_p2">
                   </div>
                 </div>
-              </div>
-              <div class="form-group">
-                <div class='row'>
-                  <div class='col-md-3'>
+                <div class="row">
+                  <div class="col-md-3">
                     <label>Parcela 3</label>
-                    <%= f.text_field :portion3, class:'form-control clear-field'%>
+                    <input type="text" class="form-control" ng-model="newLoanObj.portion3">
                   </div>
-                  <div class='col-md-3'>
-                    <label>Pagamento da 3ª parcela</label>
-                    <%= f.text_field :date_p3, class:'form-control', value: @p3.strftime('%d/%m/%Y'), id:'date_p3'%>
+                  <div class="col-md-3">
+                    <label>Previsão de Pagamento da 3ª Parcela</label>
+                    <input type="date" class="form-control" ng-model="newLoanObj.date_p3">
                   </div>
                 </div>
               </div>
-              <div class="box-footer">
-                <%= f.submit "Cadastrar", class:'btn btn-primary', id:'new-loan-submit'%>
-              </div>
-            <% end %>
-          </div>
-        </div>
-        <hr>
-          <!-- Modal Editar Cliente-->
-          <div class="modal fade" id="ExemploModalCentralizadoCliente" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="TituloModalCentralizado">Editar Cliente</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Fechar" ng-click="cancelEditCustomer()">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <p>Nome</p>
-                  <input type="text" class="form-control" ng-model="customer.name">
-                  <p>CPF</p>
-                  <input class="form-control" ng-model="customer.cpf">
-                  <p>Endereço</p>
-                  <input class="form-control" ng-model="customer.address">
-                  <p>Telefone</p>
-                  <input class="form-control" ng-model="customer.phone">
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal" ng-click="cancelEditCustomer()">Fechar</button>
-                  <button type="button" class="btn btn-primary" ng-click="editSaveCustomer(customer)" data-dismiss="modal">Salvar mudanças</button>
-                </div>
-              </div>
             </div>
-          </div>
-          <!-- Modal Editar Emprestimo-->
-          <div class="modal fade" id="ExemploModalCentralizadoEmprestimo" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="TituloModalCentralizado">Editar Emprestimo</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Fechar" ng-click="cancelEditCustomer()">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <p>Loja</p>
-                  <input type="text" class="form-control" ng-model="loanEdit.store">
-                  <p>Valor</p>
-                  <input type="text" class="form-control" ng-model="loanEdit.amount">
-                  <p>Parcela 1</p>
-                  <input type="text" class="form-control" ng-model="loanEdit.portion1">
-                  <p>Parcela 2</p>
-                  <input type="text" class="form-control" ng-model="loanEdit.portion2">
-                  <p>Parcela 3</p>
-                  <input type="text" class="form-control" ng-model="loanEdit.portion3">
-                  <p>Pagamento da 1ª Parcela</p>
-                  <input type="text" class="form-control" ng-model="loanEdit.date_p1">
-                  <p>Pagamento da 2ª Parcela</p>
-                  <input type="text" class="form-control" ng-model="loanEdit.date_p2">
-                  <p>Pagamento da 3ª Parcela</p>
-                  <input type="text" class="form-control" ng-model="loanEdit.date_p3">
-
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal" ng-click="cancelEditCustomer()">Fechar</button>
-                  <button type="button" class="btn btn-primary" ng-click="editSaveCustomer(customer)" data-dismiss="modal">Salvar mudanças</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        <div class="box">
-            <div class="box-header with-border">
-              <h3 class="box-title">Cliente</h3>
-            </div>
-            <div class="box-body">
-              <table class="table table-striped">
-                <tr>
-                  <th style="width: 10px">#</th>
-                  <th>Nome</th>
-                  <th>CPF</th>
-                  <th>Endereço</th>
-                  <th>Telefone</th>
-                  <th>Editar</th>
-                </tr>
-                <tr style="font-weight: normal">
-                  <td>1</td>
-                  <td>{{customer.name}}</td>
-                  <td>{{customer.cpf}}</td>
-                  <td>{{customer.address}}</td>
-                  <td>{{customer.phone}}</td>
-                  <td>
-                    <button type="button" class="btn btn-secondary btn" data-toggle="modal" data-target="#ExemploModalCentralizadoCliente" ng-click="editCustomer(customer)")>Editar</button>
-                    <a href="/customer/{{customer.id}}/destroy" class="btn btn-danger" data-method="delete" data-confirm="Tem certeza que deseja apagar: {{customer.name}}? Todos os emprestimos relacionados a este cliente serão automaticamente deletados.">Apagar</a>
-                  </td>
-                </tr>
-              </table>
-            </div>
-          </div>
-          <div class="box">
-            <div class="box-header with-border">
-              <h3 class="box-title">Emprestimo</h3>
-            </div>
-            <div class="box-body">
-               <table class="table table-striped">
-                <tr>
-                  <th style="width: 10px">#</th>
-                  <th>Loja</th>
-                  <th>Valor da compra</th>
-                  <th>1ª Parcela</th>
-                  <th>2ª Parcela</th>
-                  <th>3ª Parcela</th>
-                  <th>Apagar</th>
-                </tr>
-                 <tr ng-repeat="loan in loans" style="font-weight: normal">
-                   <td>{{$index+1}}</td>
-                   <td>{{loan.store}}</td>
-                   <td>{{loan.amount}}</td>
-                   <td ng-class="redOrGreen(loan.date_p1)">R$ {{loan.portion1}} ({{loan.date_p1 | date: 'dd/MM/yyyy'}})</td>
-                   <td ng-class="redOrGreen(loan.date_p2)">R$ {{loan.portion2}} ({{loan.date_p2 | date: 'dd/MM/yyyy'}})</td>
-                   <td ng-class="redOrGreen(loan.date_p3)">R$ {{loan.portion3}} ({{loan.date_p3 | date: 'dd/MM/yyyy'}})</td>
-                   <td>
-                     <button type="button" class="btn btn-secondary btn" data-toggle="modal" data-target="#ExemploModalCentralizadoEmprestimo" ng-click="editCustomer(customer)")>Editar</button>
-                     <a href="/loan/{{loan.id}}/delete" data-method="delete" data-confirm="Tem certeza que deseja apagar este emprestimo?" class="btn btn-danger">Apagar</a>
-                   </td>
-                 </tr>
-                <%# @count = 1 %>
-                <%# @customer.loans.each do |loan|%>
-<!--                <tr style="font-weight: normal">-->
-<!--                  <td><%#= @count %></td>-->
-<!--                  <td><%#= link_to loan.store, loan_path(loan.id) %></td>-->
-<!--                  <td><%#= loan.amount %></td>-->
-                  <%# if loan.paid_p1 %>
-<!--                    <td><span class='text-success'><%#= loan.portion1 %> (<%#= loan.date_p1.strftime('%d/%m/%Y')%>)</span></td>-->
-                  <%# else %>
-<!--                    <td><span class='text-danger'><%#= loan.portion1 %> (<%#= loan.date_p1.strftime('%d/%m/%Y')%>)</span></td>-->
-                  <%# end %>
-                  <%# if loan.paid_p2 %>
-<!--                    <td><span class='text-success'><%#= loan.portion2 %> (<%#= loan.date_p2.strftime('%d/%m/%Y')%>)</span></td>-->
-                  <%# else %>
-<!--                    <td><span class='text-danger'><%#= loan.portion2 %> (<%#= loan.date_p2.strftime('%d/%m/%Y')%>)</span></td>-->
-                  <%# end %>
-                  <%# if loan.paid_p3 %>
-<!--                    <td><span class='text-success'><%#= loan.portion3 %> (<%#= loan.date_p3.strftime('%d/%m/%Y')%>)</span></td>-->
-                  <%# else %>
-<!--                    <td><span class='text-danger'><%#= loan.portion3 %> (<%#= loan.date_p3.strftime('%d/%m/%Y')%>)</span></td>-->
-                  <%# end %>
-<!--                  <td>-->
-                    <%#= link_to 'Editar', edit_loan_path(loan.id), class:'btn btn-primary btn-sm'%>
-                    <%#= link_to "Apagar", destroy_loan_path(loan.id), method: :delete, data: {confirm: "Tem certeza que deseja apagar este emprestimo?"}, class:'btn btn-danger btn-sm'%>
-<!--                  </td>-->
-
-
-                  <%# @count += 1%>
-<!--                </tr>-->
-                <%# end %>
-              </table>
-              <%= link_to 'Voltar', root_path, class:'btn btn-primary btn-sm'%>
+            <div class="box-footer">
+              <button class="btn btn-primary" ng-click="submitNewLoan(newLoanObj)">Cadastrar</button>
+              <button class="btn btn-danger" ng-click="cancelNewLoan()">Cancelar</button>
             </div>
           </div>
         </div>
       </div>
-    </section>
+      <hr>
+      <!-- Modal Editar Cliente-->
+      <div class="modal fade" id="ExemploModalCentralizadoCliente" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="TituloModalCentralizado">Editar Cliente</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Fechar" ng-click="cancelEditCustomer()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>Nome</p>
+              <input type="text" class="form-control" ng-model="customer.name">
+              <p>CPF</p>
+              <input class="form-control" ng-model="customer.cpf">
+              <p>Endereço</p>
+              <input class="form-control" ng-model="customer.address">
+              <p>Telefone</p>
+              <input class="form-control" ng-model="customer.phone">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal" ng-click="cancelEditCustomer()">Fechar</button>
+              <button type="button" class="btn btn-primary" ng-click="editSaveCustomer(customer)" data-dismiss="modal">Salvar mudanças</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="box">
+        <div class="box-header with-border">
+          <h3 class="box-title">Cliente</h3>
+        </div>
+        <div class="box-body">
+          <table class="table table-striped">
+            <tr>
+              <th style="width: 10px">#</th>
+              <th>Nome</th>
+              <th>CPF</th>
+              <th>Endereço</th>
+              <th>Telefone</th>
+              <th>Editar</th>
+            </tr>
+            <tr style="font-weight: normal">
+              <td>1</td>
+              <td>{{customer.name}}</td>
+              <td>{{customer.cpf}}</td>
+              <td>{{customer.address}}</td>
+              <td>{{customer.phone}}</td>
+              <td>
+                <button type="button" class="btn btn-secondary btn" data-toggle="modal" data-target="#ExemploModalCentralizadoCliente" ng-click="editCustomer(customer)")>Editar</button>
+                <a href="/customer/{{customer.id}}/destroy" class="btn btn-danger" data-method="delete" data-confirm="Tem certeza que deseja apagar: {{customer.name}}? Todos os emprestimos relacionados a este cliente serão automaticamente deletados.">Apagar</a>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="box">
+        <div class="box-header with-border">
+          <h3 class="box-title">Emprestimo</h3>
+        </div>
+        <div class="box-body">
+          <table class="table table-striped">
+            <tr>
+              <th style="width: 10px">#</th>
+              <th>Loja</th>
+              <th>Valor da compra</th>
+              <th>1ª Parcela</th>
+              <th>2ª Parcela</th>
+              <th>3ª Parcela</th>
+              <th>Apagar</th>
+            </tr>
+            <tr ng-repeat="loan in loans" style="font-weight: normal">
+              <td>{{$index+1}}</td>
+              <td>{{loan.store}}</td>
+              <td>R$ {{loan.amount}}</td>
+              <td ng-class="redOrGreen(loan.paid_p1)">R$ {{loan.portion1}} ({{loan.date_p1 | date: 'dd/MM/yyyy'}})</td>
+              <td ng-class="redOrGreen(loan.paid_p2)">R$ {{loan.portion2}} ({{loan.date_p2 | date: 'dd/MM/yyyy'}})</td>
+              <td ng-class="redOrGreen(loan.paid_p3)">R$ {{loan.portion3}} ({{loan.date_p3 | date: 'dd/MM/yyyy'}})</td>
+              <td>
+                <button type="button" class="btn btn-secondary btn" data-toggle="modal" data-target="#ExemploModalCentralizadoEmprestimo" ng-click="editLoan(loan)")>Editar</button>
+                <a href="/loan/{{loan.id}}/delete" data-method="delete" data-confirm="Tem certeza que deseja apagar este emprestimo?" class="btn btn-danger">Apagar</a>
+              </td>
+            </tr>
+          </table>
+          <%= link_to 'Voltar', root_path, class:'btn btn-primary btn-sm'%>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>

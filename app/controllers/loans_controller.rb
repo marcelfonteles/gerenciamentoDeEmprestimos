@@ -101,6 +101,32 @@ class LoansController < ApplicationController
     @loans = Loan.all.where(customer_id: params[:id])
     render json: {status: 200, data: @loans}
   end
+
+  def api_get_dates
+    @p1 = Date.today + 70
+    @p2 = Date.today + 100
+    @p3 = Date.today + 130
+    render json: { status: 200, data: {date_p1: @p1, date_p2: @p2, date_p3: @p3}}
+  end
+
+  def api_new_loan
+    puts params
+    @loan = Loan.new
+    @loan.store = params[:store]
+    @loan.amount = params[:amount]
+    @loan.portion1 = params[:portion1]
+    @loan.portion2 = params[:portion2]
+    @loan.portion3 = params[:portion3]
+    @loan.date_p1 = params[:date_p1]
+    @loan.date_p2 = params[:date_p2]
+    @loan.date_p3 = params[:date_p3]
+    @loan.paid_p1 = false
+    @loan.paid_p2 = false
+    @loan.paid_p3 = false
+    @loan.customer_id = params[:customer_id]
+    @loan.save
+    render json: {status: 200, loanId: @loan.id}
+  end
   
   private
   

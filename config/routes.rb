@@ -24,6 +24,8 @@ Rails.application.routes.draw do
     get 'angular/json', to: 'loans#json_loans'
     # AngularJS
     get 'api/getcustomerloans/:id', to: 'loans#api_get_customer_loans'
+    get 'api/getdates', to: 'loans#api_get_dates'
+    post 'api/newloan', to: 'loans#api_new_loan'
 
   end
 
