@@ -109,6 +109,13 @@ class LoansController < ApplicationController
     render json: { status: 200, data: {date_p1: @p1, date_p2: @p2, date_p3: @p3}}
   end
 
+  def api_update_dates
+    @p1 = Date.parse(params[:date_p1])
+    @p2 = @p1 + 30
+    @p3 = @p1 + 60
+    render json: { status: 200, data: {date_p1: @p1, date_p2: @p2, date_p3: @p3}}
+  end
+
   def api_new_loan
     puts params
     @loan = Loan.new

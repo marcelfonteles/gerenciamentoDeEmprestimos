@@ -15,6 +15,13 @@ app.controller("customerShowCtrl", ["$scope", "$location", "$log", "$http", func
         });
     };
     $scope.getDates();
+    $scope.updateDates = function(newLoanObj) {
+        $http.post('/loan/api/updatedates', newLoanObj).then(function (response) {
+            $scope.newLoanObj.date_p3 = new Date(response.data.data.date_p3);
+            $scope.newLoanObj.date_p1 = new Date(response.data.data.date_p1);
+            $scope.newLoanObj.date_p2 = new Date(response.data.data.date_p2);
+        })
+    };
     $http.get('/customer/api/getcustomer/'+$scope.customerId).then(function (response) {
         $scope.customer = response.data.data;
 

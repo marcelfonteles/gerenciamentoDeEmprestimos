@@ -25,6 +25,7 @@ Rails.application.routes.draw do
     # AngularJS
     get 'api/getcustomerloans/:id', to: 'loans#api_get_customer_loans'
     get 'api/getdates', to: 'loans#api_get_dates'
+    post 'api/updatedates', to: 'loans#api_update_dates'
     post 'api/newloan', to: 'loans#api_new_loan'
     patch 'api/editloan', to: 'loans#api_edit_loan'
 
