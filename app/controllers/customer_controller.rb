@@ -44,9 +44,11 @@ class CustomerController < ApplicationController
   end
   
   def filtered
+    # 01/2020
+    # 01234567
     @mes = params[:date][0..1]
-    @ano = params[:date][3..7]
-    @customer_id = params[:customer_id]
+    @ano = params[:date][3..6]
+      @customer_id = params[:customer_id]
     @cliente = Customer.find(params[:customer_id])
     @filter = params[:date]
     # Retorna os emprestimos filtrados
@@ -150,16 +152,23 @@ class CustomerController < ApplicationController
         @monthArray.push(loan.date_p3.month.to_s + '/' + loan.date_p3.year.to_s) 
       end
     end
-    return @monthArray.uniq
+    # 01/2020
+    # 0123456
+    @monthArrayUniq = @monthArray.uniq
+
+    return @monthArrayUniq.sort { |a,b| Date.new(b[3..6].to_i, b[0..1].to_i, 01) <=> Date.new(a[3..6].to_i, a[0..1].to_i, 01)}
   end
 
   def selecting_loans(date, id)
     @loans = Loan.select {|loan| loan.customer_id == id.to_i}
     @loans = @loans.select {|loan| (loan.date_p1.month == date[0..1].to_i and loan.date_p1.year == date[3..7].to_i) or 
                                     (loan.date_p2.month == date[0..1].to_i and loan.date_p2.year == date[3..7].to_i) or 
-                                    (loan.date_p3.month == date[0..1].to_i and loan.date_p2.year == date[3..7].to_i)
+                                    (loan.date_p3.month == date[0..1].to_i and loan.date_p3.year == date[3..7].to_i)
                               }
 
     return @loans
   end
 end
+
+
+ap Loan.where("date_p1 > ? or date_p2 > ? or date_p3 > ?", '2020-05-01', '2020-05-01', '2020-05-01')

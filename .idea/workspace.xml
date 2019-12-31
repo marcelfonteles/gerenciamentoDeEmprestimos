@@ -6,11 +6,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="54504764-ac03-4ff3-bd74-d88aaf6da9e5" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/gerenciamentoDeEmprestimos.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gerenciamentoDeEmprestimos.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/assets/javascripts/app/controllers/customerShowCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/assets/javascripts/app/controllers/customerShowCtrl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/controllers/loans_controller.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/loans_controller.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/views/customer/show.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/customer/show.html.erb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/routes.rb" beforeDir="false" afterPath="$PROJECT_DIR$/config/routes.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controllers/customer_controller.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/customer_controller.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/users/sessions/new.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/users/sessions/new.html.erb" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -36,7 +35,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.ruby.settings.RubyActiveModuleSdkConfigurable" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -149,7 +148,7 @@
       <method v="2" />
     </configuration>
   </component>
-  <component name="SpringUtil" SPRING_PRE_LOADER_OPTION="true" />
+  <component name="SpringUtil" SPRING_PRE_LOADER_OPTION="true" RAKE_SPRING_PRE_LOADER_OPTION="false" RAILS_SPRING_PRE_LOADER_OPTION="false" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -165,6 +164,7 @@
       <workItem from="1565833633217" duration="32502000" />
       <workItem from="1565908396546" duration="868000" />
       <workItem from="1567123766959" duration="1186000" />
+      <workItem from="1577819238482" duration="3291000" />
     </task>
     <servers />
   </component>
@@ -185,7 +185,7 @@
     </option>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/gerenciamentoDeEmprestimos@Development__gerenciamentoDeEmprestimos.rcov" NAME="Development: gerenciamentoDeEmprestimos Coverage Results" MODIFIED="1567124422995" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="gerenciamentoDeEmprestimos" />
+    <SUITE FILE_PATH="coverage/gerenciamentoDeEmprestimos@Development__gerenciamentoDeEmprestimos.rcov" NAME="Development: gerenciamentoDeEmprestimos Coverage Results" MODIFIED="1577820690300" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="gerenciamentoDeEmprestimos" />
     <SUITE FILE_PATH="coverage/gerenciamentoDeEmprestimos@Production__gerenciamentoDeEmprestimos.rcov" NAME="Production: gerenciamentoDeEmprestimos Coverage Results" MODIFIED="1565908522265" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="gerenciamentoDeEmprestimos" />
   </component>
 </project>
