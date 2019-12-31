@@ -171,4 +171,3 @@ class CustomerController < ApplicationController
 end
 
 
-ap Loan.where("date_p1 > ? or date_p2 > ? or date_p3 > ?", '2020-05-01', '2020-05-01', '2020-05-01')
