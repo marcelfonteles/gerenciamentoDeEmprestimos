@@ -5,12 +5,7 @@
     <option name="CUSTOM_SCOPE_NAME" value="All Places" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="54504764-ac03-4ff3-bd74-d88aaf6da9e5" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/gerenciamentoDeEmprestimos.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gerenciamentoDeEmprestimos.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/controllers/customer_controller.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/customer_controller.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/views/users/sessions/new.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/users/sessions/new.html.erb" afterDir="false" />
-    </list>
+    <list default="true" id="54504764-ac03-4ff3-bd74-d88aaf6da9e5" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -164,7 +159,7 @@
       <workItem from="1565833633217" duration="32502000" />
       <workItem from="1565908396546" duration="868000" />
       <workItem from="1567123766959" duration="1186000" />
-      <workItem from="1577819238482" duration="3291000" />
+      <workItem from="1577819238482" duration="3747000" />
     </task>
     <servers />
   </component>
@@ -185,7 +180,7 @@
     </option>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/gerenciamentoDeEmprestimos@Development__gerenciamentoDeEmprestimos.rcov" NAME="Development: gerenciamentoDeEmprestimos Coverage Results" MODIFIED="1577820690300" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="gerenciamentoDeEmprestimos" />
+    <SUITE FILE_PATH="coverage/gerenciamentoDeEmprestimos@Development__gerenciamentoDeEmprestimos.rcov" NAME="Development: gerenciamentoDeEmprestimos Coverage Results" MODIFIED="1577823108486" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="gerenciamentoDeEmprestimos" />
     <SUITE FILE_PATH="coverage/gerenciamentoDeEmprestimos@Production__gerenciamentoDeEmprestimos.rcov" NAME="Production: gerenciamentoDeEmprestimos Coverage Results" MODIFIED="1565908522265" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="gerenciamentoDeEmprestimos" />
   </component>
 </project>
