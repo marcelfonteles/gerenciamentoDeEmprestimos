@@ -1,4 +1,4 @@
-   <div class="content-wrapper" ng-controller="customerIndexCtrl">
+<div class="content-wrapper" ng-controller="customerIndexCtrl">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
@@ -89,16 +89,16 @@
                   <td>R${{customer.vlrReceber | number: 2}}</td>
                   <td>
                     <a href="/customer/{{customer.id}}" class="btn btn-primary btn-sm">Ver Emprestimos</a>
-<!--                    <a href="/customer/{{customer.id}}/edit" class="btn btn-secondary btn-sm">Editar Cliente</a>-->
                     <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#ExemploModalCentralizado" ng-click="editCustomer(customer)")>Editar Cliente</button>
                     <a href="/customer/{{customer.id}}/destroy" data-method="delete" data-confirm="Tem certeza que deseja apagar o cliente: {{customer.name}}" class="btn btn-danger btn-sm">Apagar Cliente</a>
                   </td>
                 </tr>
               </table>
             </div>
+          </div>
         </div>
       </div>
       <!-- /.row (main row) -->
     </section>
     <!-- /.content -->
-  </div>
+</div>
