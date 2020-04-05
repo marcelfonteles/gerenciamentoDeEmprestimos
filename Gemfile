@@ -42,6 +42,7 @@ gem 'devise', ">= 4.7.1"
 gem 'awesome_print'
 # JQuery
 gem 'jquery-rails'
+gem "actionview", ">= 5.2.4.2"
 
 
 group :development, :test do
