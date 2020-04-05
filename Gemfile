@@ -42,12 +42,18 @@ gem 'devise', ">= 4.7.1"
 gem 'awesome_print'
 # JQuery
 gem 'jquery-rails'
+
+# Corrigindo vulnerabilidade
 gem "actionview", ">= 5.2.4.2"
 
+# Excpetion Notification
+gem 'exception_notification'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  # Envio de email em Dev
+  gem 'mailcatcher'
 end
 
 group :development do

@@ -21,7 +21,9 @@ Rails.application.routes.draw do
     post ':id/:portion/confirm', to: 'loans#confirm_payment', as: 'confirm_payment'
     post ':id/:portion/cancel', to: 'loans#cancel_payment', as: 'cancel_payment'
     delete ':id/delete', to: 'loans#destroy_loan', as: 'destroy_loan'
+
     get 'angular/json', to: 'loans#json_loans'
+
     # AngularJS
     get 'api/getcustomerloans/:id', to: 'loans#api_get_customer_loans'
     get 'api/getdates', to: 'loans#api_get_dates'
@@ -43,6 +45,7 @@ Rails.application.routes.draw do
     get 'resultado/:customer_id/:date/confirm', to: 'customer#confirm_payment', as: 'confirm_customer_payments'
     get 'resultado/:customer_id/:date/cancel', to: 'customer#cancel_payment', as: 'cancel_customer_payments'
     get 'angular/json', to: 'customer#json_customers'
+    get 'test/error', to: 'customer#error'
     # AngularJS
     post 'api/createcustomer', to: 'customer#api_create_customer'
     patch 'api/updatecustomer', to: 'customer#api_update_customer'

@@ -87,6 +87,11 @@ class CustomerController < ApplicationController
     redirect_to filtered_customer_loan_path(params[:customer_id], params[:date])
   end
 
+  def error
+    raise 'boom'
+    render plain: "Hello World"
+  end
+
   # AngularJS
   def json_customers
     @customers = Customer.all.order(:name)
