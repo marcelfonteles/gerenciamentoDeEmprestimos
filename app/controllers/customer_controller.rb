@@ -94,10 +94,12 @@ class CustomerController < ApplicationController
 
   # AngularJS
   def json_customers
-    if params[:name].nil?
-      @customers = Customer.all.order(:name).limit(10)
-    else
+    if params[:name] != nil
       @customers = Customer.where("lower(name) like ?", params[:name].downcase << "%").order(:name).limit(10)
+    elsif params[:page] != nil
+      @customers = Customer.all.order(:name).limit(10).offset(10*(params[:page].to_i))
+    else
+      @customers = Customer.all.order(:name).limit(10).offset(0)
     end
     render json:{status: 200, data: @customers}
   end

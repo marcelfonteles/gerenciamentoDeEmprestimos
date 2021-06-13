@@ -6,6 +6,7 @@ app.controller("customerIndexCtrl", ["$scope", "$http", "$log", "$location", fun
     $scope.loans = [];
     $scope.showForm = false;
     $scope.search = "";
+    $scope.page = 0;
     var primeiro = true;
     // Loading customers and loans
     $http.get("/customer/angular/json").then(function (response) {
@@ -112,6 +113,74 @@ app.controller("customerIndexCtrl", ["$scope", "$http", "$log", "$location", fun
                 $scope.customers = response.data.data;
                 $scope.customers.forEach(function (customer) {
                     customer.vlrReceber = 0.0;
+                    $http.get("/loan/angular/json").then(function (response) {
+                        $scope.loans = response.data.data;
+                        if (primeiro){
+                            primeiro = false;
+                            $scope.loans.forEach(function (loan) {
+                                var total = 0;
+                                if (loan.paid_p1 == false) {
+                                    total += loan.portion1;
+                                }
+                                if (loan.paid_p2 == false) {
+                                    total += loan.portion3;
+                                }
+                                if (loan.paid_p3 == false) {
+                                    total += loan.portion3;
+                                }
+                                $scope.customers.forEach(function (customer) {
+                                    if (customer.id == loan.customer_id) {
+                                        customer.vlrReceber += total;
+                                    }
+                                })
+                            })
+                        }
+                    })
+                })
+            });
+        }
+    }
+    $scope.nextPage = function () {
+        $scope.page += 1;
+        $http.get("/customer/angular/json?page=" + $scope.page).then(function (response) {
+            $scope.customers = response.data.data;
+            $scope.customers.forEach(function (customer) {
+                customer.vlrReceber = 0.0;
+
+                $http.get("/loan/angular/json").then(function (response) {
+                    $scope.loans = response.data.data;
+                    if (primeiro){
+                        primeiro = false;
+                        $scope.loans.forEach(function (loan) {
+                            var total = 0;
+                            if (loan.paid_p1 == false) {
+                                total += loan.portion1;
+                            }
+                            if (loan.paid_p2 == false) {
+                                total += loan.portion3;
+                            }
+                            if (loan.paid_p3 == false) {
+                                total += loan.portion3;
+                            }
+                            $scope.customers.forEach(function (customer) {
+                                if (customer.id == loan.customer_id) {
+                                    customer.vlrReceber += total;
+                                }
+                            })
+                        })
+                    }
+                })
+            })
+        });
+    }
+    $scope.prevPage = function () {
+        if ($scope.page > 0 ) {
+            $scope.page -= 1;
+            $http.get("/customer/angular/json?page=" + $scope.page).then(function (response) {
+                $scope.customers = response.data.data;
+                $scope.customers.forEach(function (customer) {
+                    customer.vlrReceber = 0.0;
+
                     $http.get("/loan/angular/json").then(function (response) {
                         $scope.loans = response.data.data;
                         if (primeiro){
