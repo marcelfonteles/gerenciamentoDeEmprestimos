@@ -64,7 +64,7 @@
       </div>
       <hr>
       <div class="form-group">
-        <input class="form-control" placeholder="Digite o nome do cliente..." ng-model="buscador.name">
+        <input class="form-control" placeholder="Digite o nome do cliente..." ng-model="search" ng-keyup="helloWorld()">
       </div>
       <hr>
       <!-- Main row -->
@@ -83,7 +83,7 @@
                   <th>Valor a receber</th>
                   <th>Informações</th>
                 </tr>
-                <tr ng-repeat="customer in customers | filter: buscador" style="font-weight: normal;">
+                <tr ng-repeat="customer in customers" style="font-weight: normal;">
                   <td>{{$index+1}}</td>
                   <td>{{customer.name}}</td>
                   <td>R${{customer.vlrReceber | number: 2}}</td>

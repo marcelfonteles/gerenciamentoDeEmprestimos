@@ -1,7 +1,7 @@
 class CustomerController < ApplicationController
   before_action :authenticate_user!
   def index
-  	@customer = Customer.all.order(:name)
+  	# @customer = Customer.all.order(:name).limit(1)
     @newCustomer = Customer.new
     @p1 = Date.today + 70
     @p2 = Date.today + 100
@@ -94,7 +94,11 @@ class CustomerController < ApplicationController
 
   # AngularJS
   def json_customers
-    @customers = Customer.all.order(:name)
+    if params[:name].nil?
+      @customers = Customer.all.order(:name).limit(10)
+    else
+      @customers = Customer.where("lower(name) like ?", params[:name].downcase << "%").order(:name).limit(10)
+    end
     render json:{status: 200, data: @customers}
   end
 
