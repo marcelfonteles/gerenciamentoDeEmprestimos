@@ -11,9 +11,9 @@ app.controller("customerIndexCtrl", ["$scope", "$http", "$log", "$location", fun
     // Loading customers and loans
     $http.get("/customer/angular/json").then(function (response) {
         $scope.customers = response.data.data;
+        return
         $scope.customers.forEach(function (customer) {
             customer.vlrReceber = 0.0;
-
             $http.get("/loan/angular/json").then(function (response) {
                 $scope.loans = response.data.data;
                 if (primeiro){
@@ -80,9 +80,9 @@ app.controller("customerIndexCtrl", ["$scope", "$http", "$log", "$location", fun
         if ($scope.search.length > 4) {
             $http.get("/customer/angular/json?name=" + $scope.search).then(function (response) {
                 $scope.customers = response.data.data;
+                return
                 $scope.customers.forEach(function (customer) {
                     customer.vlrReceber = 0.0;
-
                     $http.get("/loan/angular/json").then(function (response) {
                         $scope.loans = response.data.data;
                         if (primeiro){
@@ -111,6 +111,7 @@ app.controller("customerIndexCtrl", ["$scope", "$http", "$log", "$location", fun
         } else {
             $http.get("/customer/angular/json").then(function (response) {
                 $scope.customers = response.data.data;
+                return
                 $scope.customers.forEach(function (customer) {
                     customer.vlrReceber = 0.0;
                     $http.get("/loan/angular/json").then(function (response) {
@@ -144,6 +145,7 @@ app.controller("customerIndexCtrl", ["$scope", "$http", "$log", "$location", fun
         $scope.page += 1;
         $http.get("/customer/angular/json?page=" + $scope.page).then(function (response) {
             $scope.customers = response.data.data;
+            return
             $scope.customers.forEach(function (customer) {
                 customer.vlrReceber = 0.0;
 
@@ -178,6 +180,7 @@ app.controller("customerIndexCtrl", ["$scope", "$http", "$log", "$location", fun
             $scope.page -= 1;
             $http.get("/customer/angular/json?page=" + $scope.page).then(function (response) {
                 $scope.customers = response.data.data;
+                return
                 $scope.customers.forEach(function (customer) {
                     customer.vlrReceber = 0.0;
 

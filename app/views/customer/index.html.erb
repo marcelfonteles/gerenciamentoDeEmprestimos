@@ -80,13 +80,13 @@
                 <tr>
                   <th style="width: 10px">#</th>
                   <th>Nome</th>
-                  <th>Valor a receber</th>
+<!--                  <th>Valor a receber</th>-->
                   <th>Informações</th>
                 </tr>
                 <tr ng-repeat="customer in customers" style="font-weight: normal;">
                   <td>{{$index+1}}</td>
                   <td>{{customer.name}}</td>
-                  <td>R${{customer.vlrReceber | number: 2}}</td>
+<!--                  <td>R${{customer.vlrReceber | number: 2}}</td>-->
                   <td>
                     <a href="/customer/{{customer.id}}" class="btn btn-primary btn-sm">Ver Emprestimos</a>
                     <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#ExemploModalCentralizado" ng-click="editCustomer(customer)")>Editar Cliente</button>
