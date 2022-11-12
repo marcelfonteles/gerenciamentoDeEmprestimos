@@ -60,13 +60,13 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   # Envio de email em ambiente de Desenvolvimento
-    config.action_mailer.smtp_settings = { address: "localhost", port: 1025 }
+  # config.action_mailer.smtp_settings = { address: "localhost", port: 1025 }
 
 
-  Rails.application.config.middleware.use ExceptionNotification::Rack,
-                                          email: {
-                                              email_prefix: 'GerenciamentoDev',
-                                              sender_address: %{"gerenciamentoDev" <gerenciamento_dev@dinheiro.com.br>},
-                                              exception_recipients: %w{marcelfonteles@gmail.com}
-                                          }
+  # Rails.application.config.middleware.use ExceptionNotification::Rack,
+  #                                         email: {
+  #                                             email_prefix: 'GerenciamentoDev',
+  #                                             sender_address: %{"gerenciamentoDev" <gerenciamento_dev@dinheiro.com.br>},
+  #                                             exception_recipients: %w{marcelfonteles@gmail.com}
+  #                                         }
 end
