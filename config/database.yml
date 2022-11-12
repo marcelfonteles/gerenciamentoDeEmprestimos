@@ -24,8 +24,8 @@ default: &default
 development:
   <<: *default
   username: postgres
-  password: postgres
-  database: gerenciamento_dev
+  password: playbookux
+  database: loans_development
 
 
 test:
